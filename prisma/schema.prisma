@@ -1,0 +1,62 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+model User {
+  id           String    @id
+  username     String    @unique
+  email        String    @unique
+  name         String
+  lastName     String    @map("last_name")
+  passwordHash String?   @map("password_hash")
+  googleId     String?   @unique @map("google_id")
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime? @updatedAt @map("updated_at")
+  patients     Patient[]
+  sessions     Session[]
+
+  @@map("users")
+}
+
+model Session {
+  id        String   @id
+  userId    String   @map("user_id")
+  expiresAt DateTime @map("expire_at")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model Patient {
+  id               String           @id
+  name             String
+  lastName         String           @map("last_name")
+  age              Int
+  address          String
+  identification   String
+  userId           String           @map("user_id")
+  createdAt        DateTime         @default(now()) @map("created_at")
+  updatedAt        DateTime?        @updatedAt @map("updated_at")
+  medicalHistories MedicalHistory[]
+  user             User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("patients")
+}
+
+model MedicalHistory {
+  id          String    @id
+  description String
+  patienId    String    @map("patient_id")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime? @updatedAt @map("updated_at")
+  patient     Patient   @relation(fields: [patienId], references: [id], onDelete: Cascade)
+
+  @@map("medical_histories")
+}
