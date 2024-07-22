@@ -1,18 +1,20 @@
-import { requiredString } from "@/lib/validation";
+import { requiredString } from "@/utils/validation";
+import { FormErrorsMessages } from "@/utils/constants";
+import { ONLY_LETTERS_NUMBERS_UNDERSCORES_DASHES } from "@/utils/regex";
 import { z } from "zod";
 
 export const signUpSchema = z.object({
   name: requiredString,
   lastName: requiredString,
   username: requiredString.regex(
-    /^[a-zA-Z0-9_-]+$/,
-    "Only contain letters, numbers, underscores and dashes",
+    ONLY_LETTERS_NUMBERS_UNDERSCORES_DASHES,
+    FormErrorsMessages.WRONG_REGEX_PATTERN,
   ),
-  email: z.string().trim().min(1).email(),
-  password: requiredString.min(8, "Must be at least 8 characters"),
+  email: requiredString.email(FormErrorsMessages.INVALID_EMAIL),
+  password: requiredString.min(8, FormErrorsMessages.MIN_LENGTH),
 });
 
 export const loginSchema = signUpSchema.pick({
-  username: true,
+  email: true,
   password: true,
 });

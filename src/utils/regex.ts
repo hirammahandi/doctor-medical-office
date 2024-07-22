@@ -1,0 +1,1 @@
+export const ONLY_LETTERS_NUMBERS_UNDERSCORES_DASHES = /^[a-zA-Z0-9_-]+$/;

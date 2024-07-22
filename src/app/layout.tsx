@@ -1,8 +1,12 @@
-import "./globals.css";
-import { Inter as FontSans } from "next/font/google";
 import { cn } from "@/lib/utils";
-import { FC, PropsWithChildren } from "react";
 import { Metadata } from "next";
+import { Inter as FontSans } from "next/font/google";
+import { FC, PropsWithChildren } from "react";
+import HolyLoader from "holy-loader";
+
+// CSS
+import "./globals.css";
+import { BackgroundScreen } from "@/components/background-screen";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -23,10 +27,12 @@ const RootLayout: FC<PropsWithChildren<void>> = ({ children }) => {
       <head />
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased",
+          "min-h-dvh bg-background font-sans antialiased",
           fontSans.variable,
         )}
       >
+        <HolyLoader color="#4594fc" />
+        <BackgroundScreen />
         {children}
       </body>
     </html>

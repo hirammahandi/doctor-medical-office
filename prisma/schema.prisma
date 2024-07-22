@@ -17,7 +17,7 @@ model User {
   lastName     String    @map("last_name")
   passwordHash String?   @map("password_hash")
   googleId     String?   @unique @map("google_id")
-  createdAt    DateTime  @default(now()) @map("created_at")
+  createdAt    DateTime? @default(now()) @map("created_at")
   updatedAt    DateTime? @updatedAt @map("updated_at")
   patients     Patient[]
   sessions     Session[]
@@ -42,7 +42,7 @@ model Patient {
   address          String
   identification   String
   userId           String           @map("user_id")
-  createdAt        DateTime         @default(now()) @map("created_at")
+  createdAt        DateTime?        @default(now()) @map("created_at")
   updatedAt        DateTime?        @updatedAt @map("updated_at")
   medicalHistories MedicalHistory[]
   user             User             @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -54,7 +54,7 @@ model MedicalHistory {
   id          String    @id
   description String
   patienId    String    @map("patient_id")
-  createdAt   DateTime  @default(now()) @map("created_at")
+  createdAt   DateTime? @default(now()) @map("created_at")
   updatedAt   DateTime? @updatedAt @map("updated_at")
   patient     Patient   @relation(fields: [patienId], references: [id], onDelete: Cascade)
 
