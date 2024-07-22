@@ -4,13 +4,14 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "pnpm prisma:gen && next build",
     "start": "next start",
     "lint": "next lint",
     "prisma:pull": "pnpm dlx prisma db pull",
     "prisma:push": "pnpm dlx prisma db push",
     "prisma:gen": "pnpm dlx prisma generate",
-    "prisma:studio": "pnpm dlx prisma studio"
+    "prisma:studio": "pnpm dlx prisma studio",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
