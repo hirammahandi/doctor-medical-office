@@ -2,7 +2,7 @@ import { ClientRoutes } from "@/utils/clients-routes";
 import { FrownIcon } from "lucide-react";
 import Link from "next/link";
 
-export const NotFoundPage = () => {
+export const NotFoundContent = () => {
   return (
     <div className="flex min-h-[100dvh] flex-col items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-md text-center">

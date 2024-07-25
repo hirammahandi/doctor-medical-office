@@ -3,11 +3,11 @@ import { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
 import { FC, PropsWithChildren } from "react";
 import HolyLoader from "holy-loader";
+import { BackgroundScreen } from "@/components/background-screen";
+import { Toaster } from "@/components/ui/sonner";
 
 // CSS
 import "./globals.css";
-import { BackgroundScreen } from "@/components/background-screen";
-import { Toaster } from "@/components/ui/sonner";
 
 const fontSans = FontSans({
   subsets: ["latin"],

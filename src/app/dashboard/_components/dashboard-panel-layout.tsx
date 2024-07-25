@@ -14,7 +14,6 @@ export const AdminPanelLayout: FC<PropsWithChildren> = ({ children }) => {
   return (
     <>
       <Sidebar />
-
       <main
         className={cn(
           "min-h-[calc(100vh_-_56px)] transition-[margin-left] duration-300 ease-in-out",

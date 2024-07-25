@@ -136,7 +136,7 @@ export const RegisterForm = () => {
               Sign Up
             </Button>
             <Link
-              className="w-full text-center text-sm text-muted-foreground hover:text-black"
+              className="w-full text-center text-sm font-bold text-muted-foreground hover:text-black"
               href={ClientRoutes.LOGIN}
             >
               Already have an account?
