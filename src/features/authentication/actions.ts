@@ -69,7 +69,7 @@ export const login = async (
 
 export const signUp = async (
   credentials: SignUpSchema,
-): Promise<{ error: string }> => {
+): Promise<{ error: string } | void> => {
   try {
     const { username, email, lastName, name, password } =
       signUpSchema.parse(credentials);
@@ -107,6 +107,7 @@ export const signUp = async (
     });
 
     await createSession(generatedUserId);
+
     return redirect(ClientRoutes.DASHBOARD);
   } catch (error) {
     if (isRedirectError(error)) throw error;

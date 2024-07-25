@@ -24,7 +24,7 @@ export const LoginForm = () => {
           Don't have an account?{" "}
           <Link
             href={ClientRoutes.REGISTER}
-            className="w-full text-center text-sm text-muted-foreground hover:text-black"
+            className="w-full text-center text-sm font-bold text-muted-foreground hover:text-black"
           >
             Create one here.
           </Link>

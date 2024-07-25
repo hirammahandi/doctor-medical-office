@@ -7,6 +7,7 @@ import HolyLoader from "holy-loader";
 // CSS
 import "./globals.css";
 import { BackgroundScreen } from "@/components/background-screen";
+import { Toaster } from "@/components/ui/sonner";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -32,6 +33,7 @@ const RootLayout: FC<PropsWithChildren<void>> = ({ children }) => {
         )}
       >
         <HolyLoader color="#4594fc" />
+        <Toaster />
         <BackgroundScreen />
         {children}
       </body>

@@ -1,21 +1,20 @@
 "use client";
 
-import Link from "next/link";
-import { Ellipsis, LogOut } from "lucide-react";
-import { usePathname } from "next/navigation";
-import { cn } from "@/lib/utils";
-import { getMenuList } from "@/lib/menu-list";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Tooltip,
-  TooltipTrigger,
   TooltipContent,
   TooltipProvider,
+  TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { CollapseMenuButton } from "./collapse-menu-button";
-import { SignOutSubmitButton } from "./signout-submit-button";
+import { getMenuList } from "@/lib/menu-list";
+import { cn } from "@/lib/utils";
+import { Ellipsis } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { FC, PropsWithChildren } from "react";
+import { CollapseMenuButton } from "./collapse-menu-button";
 
 type MenuProps = PropsWithChildren<{
   isOpen?: boolean;

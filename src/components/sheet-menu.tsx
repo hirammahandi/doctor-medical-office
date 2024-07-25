@@ -12,6 +12,7 @@ import {
 import VisuallyHidden from "./ui/visually-hidden";
 import { Menu } from "./sidebar/menu";
 import { ClientRoutes } from "@/utils/clients-routes";
+import { SignOutSubmitButton } from "./sidebar/signout-submit-button";
 
 export const SheetMenu = () => {
   return (
@@ -43,7 +44,9 @@ export const SheetMenu = () => {
             <SheetDescription>Select an option from the menu</SheetDescription>
           </VisuallyHidden>
         </SheetHeader>
-        <Menu isOpen />
+        <Menu isOpen>
+          <SignOutSubmitButton />
+        </Menu>
       </SheetContent>
     </Sheet>
   );
