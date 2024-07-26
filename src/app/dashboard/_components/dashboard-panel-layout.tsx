@@ -1,10 +1,9 @@
 "use client";
 
-import { cn } from "@/lib/utils";
-import { useStore } from "@/hooks/use-store";
 import { Sidebar, useSidebarToggle } from "@/components/sidebar";
+import { useStore } from "@/hooks/use-store";
+import { cn } from "@/lib/utils";
 import { FC, PropsWithChildren } from "react";
-import { SignOutSubmitButton } from "@/components/sidebar/signout-submit-button";
 
 export const AdminPanelLayout: FC<PropsWithChildren> = ({ children }) => {
   const sidebar = useStore(useSidebarToggle, (state) => state);

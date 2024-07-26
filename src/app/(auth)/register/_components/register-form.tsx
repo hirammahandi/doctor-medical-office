@@ -24,6 +24,7 @@ import { ClientRoutes } from "@/utils/clients-routes";
 import { AlertCircle } from "lucide-react";
 import Link from "next/link";
 import { useSignupAction } from "../_hooks/use-signup-action";
+import { ErrorAlert } from "@/components/error-alert";
 
 export const RegisterForm = () => {
   const {
@@ -38,13 +39,7 @@ export const RegisterForm = () => {
         <CardDescription className="text-balance">
           Enter your details below to sign up for our platform.
         </CardDescription>
-        {errorResponse && (
-          <Alert variant="destructive">
-            <AlertCircle className="h-4 w-4" />
-            <AlertTitle>Error</AlertTitle>
-            <AlertDescription>{errorResponse.message}</AlertDescription>
-          </Alert>
-        )}
+        {errorResponse && <ErrorAlert>{errorResponse.message}</ErrorAlert>}
       </CardHeader>
       <Form {...form}>
         <form onSubmit={handleSignUp} noValidate>
