@@ -1,18 +1,35 @@
+"use client";
+
+import { ErrorAlert } from "@/components/error-alert";
+import { PasswordInput } from "@/components/password-input";
+import { Button } from "@/components/ui/button";
 import {
   Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
 } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import { ClientRoutes } from "@/utils/clients-routes";
+import Link from "next/link";
+import { useLoginAction } from "../_hooks/use-login-action";
 
 export const LoginForm = () => {
+  const {
+    actions: { handleLogin },
+    states: { errorResponse, form, isLoading },
+  } = useLoginAction();
+
   return (
     <Card className="mx-auto w-full max-w-md">
       <CardHeader>
@@ -21,46 +38,69 @@ export const LoginForm = () => {
           Enter your email and password to access your account.
         </CardDescription>
         <CardDescription className="md:text-center">
-          Don't have an account?{" "}
+          Don&apos;t have an account?{" "}
           <Link
             href={ClientRoutes.REGISTER}
-            className="w-full text-center text-sm font-bold text-muted-foreground hover:text-black"
+            className="w-full text-center text-sm font-bold text-muted-foreground hover:text-black hover:underline"
           >
-            Create one here.
+            Sign Up.
           </Link>
         </CardDescription>
+        {errorResponse?.message && (
+          <ErrorAlert>{errorResponse.message}</ErrorAlert>
+        )}
       </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="space-y-2">
-          <Label htmlFor="email">Email</Label>
-          <Input
-            id="email"
-            type="email"
-            placeholder="example@example.com"
-            required
-          />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="password">Password</Label>
-          <Input
-            id="password"
-            type="password"
-            required
-            placeholder="********"
-          />
-        </div>
-      </CardContent>
-      <CardFooter className="flex flex-col gap-2">
-        <Button type="submit" className="w-full">
-          Sign In
-        </Button>
-        <Link
-          href={ClientRoutes.FORGOT_PASSWORD}
-          className="w-full text-center text-sm text-muted-foreground hover:text-black"
-        >
-          Forgot your password?
-        </Link>
-      </CardFooter>
+      <Form {...form}>
+        <form onSubmit={handleLogin} noValidate>
+          <CardContent className="space-y-4">
+            <div className="space-y-2">
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="john@example.com"
+                        type="email"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <div className="space-y-2">
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Password</FormLabel>
+                    <FormControl>
+                      <PasswordInput {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+          </CardContent>
+          <CardFooter className="flex flex-col gap-2">
+            <Button isLoading={isLoading} type="submit" className="w-full">
+              Sign In
+            </Button>
+            <Link
+              href={ClientRoutes.FORGOT_PASSWORD}
+              className="w-full text-center text-sm text-muted-foreground hover:text-black"
+            >
+              Forgot your password?
+            </Link>
+          </CardFooter>
+        </form>
+      </Form>
     </Card>
   );
 };

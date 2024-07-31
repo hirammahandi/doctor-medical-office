@@ -23,7 +23,6 @@ function Submit({ isOpen }: { isOpen?: boolean }) {
       <Tooltip delayDuration={100}>
         <TooltipTrigger asChild>
           <Button
-            onClick={() => {}}
             variant="outline"
             className="mt-5 h-10 w-full justify-center"
             isLoading={status.pending}
@@ -56,7 +55,7 @@ export const SignOutSubmitButton: FC<SignOutSubmitButtonProps> = ({
 }) => {
   return (
     <form className="w-full" action={logout}>
-      <Submit />
+      <Submit isOpen={isOpen} />
     </form>
   );
 };
