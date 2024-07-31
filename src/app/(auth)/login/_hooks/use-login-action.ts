@@ -17,7 +17,6 @@ export const useLoginAction = () => {
     form.setError("root", { message: "" });
 
     const response = await login(formData);
-
     if (response?.error) {
       form.setError("root", { message: response.error });
     } else {

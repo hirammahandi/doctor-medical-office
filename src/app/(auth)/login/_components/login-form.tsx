@@ -1,3 +1,5 @@
+"use client";
+
 import { ErrorAlert } from "@/components/error-alert";
 import { PasswordInput } from "@/components/password-input";
 import { Button } from "@/components/ui/button";
@@ -44,7 +46,9 @@ export const LoginForm = () => {
             Sign Up.
           </Link>
         </CardDescription>
-        {errorResponse && <ErrorAlert>{errorResponse.message}</ErrorAlert>}
+        {errorResponse?.message && (
+          <ErrorAlert>{errorResponse.message}</ErrorAlert>
+        )}
       </CardHeader>
       <Form {...form}>
         <form onSubmit={handleLogin} noValidate>
@@ -85,7 +89,7 @@ export const LoginForm = () => {
             </div>
           </CardContent>
           <CardFooter className="flex flex-col gap-2">
-            <Button type="submit" className="w-full">
+            <Button isLoading={isLoading} type="submit" className="w-full">
               Sign In
             </Button>
             <Link

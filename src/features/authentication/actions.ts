@@ -1,23 +1,20 @@
 "use server";
 
+import { createSession, removeSession, validateRequestSession } from "@/auth";
 import {
-  createSession,
-  lucia,
-  removeSession,
-  validateRequestSession,
-} from "@/auth";
-import { LoginSchema, loginSchema } from "@/features/authentication";
+  LoginSchema,
+  loginSchema,
+  SignUpSchema,
+  signUpSchema,
+} from "@/features/authentication";
 import prisma from "@/lib/prisma";
 import { ClientRoutes } from "@/utils/clients-routes";
 import { ErrorsMessages } from "@/utils/constants";
-import { verify } from "@node-rs/argon2";
-import { isRedirectError } from "next/dist/client/components/redirect";
-import { redirect } from "next/navigation";
-import { SignUpSchema, signUpSchema } from "@/features/authentication";
-import { hash } from "@node-rs/argon2";
+import { hash, verify } from "@node-rs/argon2";
 import { generateIdFromEntropySize } from "lucia";
+import { isRedirectError } from "next/dist/client/components/redirect";
 import { ActionResult } from "next/dist/server/app-render/types";
-import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 import { createUser, findUserByEmail, findUserByUsername } from "../users";
 
 export const login = async (
