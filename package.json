@@ -8,6 +8,7 @@
     "build:local": "next build",
     "start": "next start",
     "lint": "next lint",
+    "typecheck": "tsc --noEmit --pretty",
     "prisma:pull": "pnpm dlx prisma db pull",
     "prisma:push": "pnpm dlx prisma db push",
     "prisma:gen": "pnpm dlx prisma generate",

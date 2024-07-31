@@ -4,7 +4,7 @@ import { validateRequestSession } from "@/auth";
 import { redirect } from "next/navigation";
 import { ClientRoutes } from "@/utils/clients-routes";
 
-const DashboardLayout: FC<PropsWithChildren> = async ({ children }) => {
+const DashboardLayout = async ({ children }: PropsWithChildren) => {
   const { session } = await validateRequestSession();
 
   if (!session) redirect(ClientRoutes.LOGIN);
