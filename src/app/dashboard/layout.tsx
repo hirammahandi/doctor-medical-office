@@ -1,7 +1,14 @@
 import React, { FC, PropsWithChildren } from "react";
 import { AdminPanelLayout } from "@dashboard/_components/dashboard-panel-layout";
+import { validateRequestSession } from "@/auth";
+import { redirect } from "next/navigation";
+import { ClientRoutes } from "@/utils/clients-routes";
 
-const DashboardLayout: FC<PropsWithChildren> = ({ children }) => {
+const DashboardLayout: FC<PropsWithChildren> = async ({ children }) => {
+  const { session } = await validateRequestSession();
+
+  if (!session) redirect(ClientRoutes.LOGIN);
+
   return <AdminPanelLayout>{children}</AdminPanelLayout>;
 };
 
