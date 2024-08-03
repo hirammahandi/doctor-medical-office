@@ -1,10 +1,18 @@
-import { ContentLayout } from "@/components/content-layout";
+import { Metadata } from "next";
+import { Suspense } from "react";
+import { DoctorFormContainer } from "./_components/doctor-form-container";
+import { DoctorFormSkeleton } from "./_components/doctor-form-skeleton";
+
+export const metadata: Metadata = {
+  title: "Doctor",
+  description: "Update your personal information",
+};
 
 const DoctorPage = () => {
   return (
-    <ContentLayout title="Doctor">
-      <div>DoctorPage</div>
-    </ContentLayout>
+    <Suspense fallback={<DoctorFormSkeleton />}>
+      <DoctorFormContainer />
+    </Suspense>
   );
 };
 

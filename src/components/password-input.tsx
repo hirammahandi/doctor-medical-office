@@ -1,17 +1,16 @@
 import { EyeIcon, EyeOffIcon } from "lucide-react";
-import { FC, ForwardedRef, forwardRef, useState } from "react";
-import { Button } from "./ui/button";
-import { Input, InputProps } from "./ui/input";
+import { ForwardedRef, forwardRef, useState } from "react";
+import { Button } from "@components/ui/button";
+import { Input, InputProps } from "@components/ui/input";
 import {
-  TooltipProvider,
   Tooltip,
-  TooltipTrigger,
   TooltipContent,
-} from "./ui/tooltip";
+  TooltipProvider,
+  TooltipTrigger,
+} from "@components/ui/tooltip";
+import { DEFAULT_PASSWORD_PLACEHOLDER } from "@/utils/constants";
 
 type PasswordInputProps = Omit<InputProps, "type">;
-
-const DEFAULT_PASSWORD_PLACEHOLDER = "********";
 
 const PasswordInputWithRef = (
   { placeholder = DEFAULT_PASSWORD_PLACEHOLDER, ...props }: PasswordInputProps,

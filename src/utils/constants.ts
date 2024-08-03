@@ -1,3 +1,7 @@
+import { ClientRoutes } from "./clients-routes";
+
+export const DEFAULT_PASSWORD_PLACEHOLDER = "********";
+
 export const ErrorsMessages = {
   INVALID_CREDENTIALS: "Invalid credentials",
   SOMETHING_WENT_WRONG: "Something went wrong. Please try again later.",
@@ -13,4 +17,11 @@ export const FormErrorsMessages = {
   WRONG_REGEX_PATTERN:
     "Only letters, numbers, underscores and dashes are allowed",
   MIN_LENGTH: "This field must be at least 8 characters",
+};
+
+export const PAGE_TITLES_BY_ROUTES: Partial<Record<ClientRoutes, string>> = {
+  [ClientRoutes.DASHBOARD]: "Dashboard",
+  [ClientRoutes.DOCTOR]: "Doctor",
+  [ClientRoutes.PATIENTS]: "Patients",
+  [ClientRoutes.CLINICAL_HISTORIES]: "Clinical Histories",
 };

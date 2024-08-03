@@ -9,7 +9,9 @@ export const ClientRoutes = {
   DOCTOR: "/dashboard/doctor",
   PATIENTS: "/dashboard/patients",
   CLINICAL_HISTORIES: "/dashboard/clinical-histories",
-};
+} as const;
+
+export type ClientRoutes = (typeof ClientRoutes)[keyof typeof ClientRoutes];
 
 export const protectedRoutesPattern = createRoutePattern([
   ClientRoutes.DASHBOARD,

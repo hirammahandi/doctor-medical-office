@@ -7,7 +7,6 @@ import {
   SignUpSchema,
   signUpSchema,
 } from "@/features/authentication";
-import prisma from "@/lib/prisma";
 import { ClientRoutes } from "@/utils/clients-routes";
 import { ErrorsMessages } from "@/utils/constants";
 import { hash, verify } from "@node-rs/argon2";
@@ -19,18 +18,11 @@ import { createUser, findUserByEmail, findUserByUsername } from "../users";
 
 export const login = async (
   credentials: LoginSchema,
-): Promise<{ error: string }> => {
+): Promise<{ error: string } | void> => {
   try {
     const { password, email } = loginSchema.parse(credentials);
 
-    const existingUser = await prisma.user.findFirst({
-      where: {
-        email: {
-          equals: email,
-          mode: "insensitive",
-        },
-      },
-    });
+    const existingUser = await findUserByEmail(email);
 
     if (!existingUser || !existingUser.passwordHash) {
       return {

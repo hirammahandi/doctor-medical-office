@@ -1,6 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import { MenuIcon, PanelsTopLeft } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@components/ui/button";
 import {
   Sheet,
   SheetHeader,
@@ -8,11 +10,11 @@ import {
   SheetTrigger,
   SheetDescription,
   SheetTitle,
-} from "@/components/ui/sheet";
-import VisuallyHidden from "./ui/visually-hidden";
-import { Menu } from "./sidebar/menu";
+} from "@components/ui/sheet";
+import VisuallyHidden from "@components/ui/visually-hidden";
+import { Menu } from "@components/sidebar/menu";
 import { ClientRoutes } from "@/utils/clients-routes";
-import { SignOutSubmitButton } from "./sidebar/signout-submit-button";
+import { SignOutSubmitButton } from "@components/sidebar/signout-submit-button";
 
 export const SheetMenu = () => {
   return (

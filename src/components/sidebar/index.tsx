@@ -1,13 +1,12 @@
-import Link from "next/link";
-import { PanelsTopLeft } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { useStore } from "@/hooks/use-store";
 import { Button } from "@/components/ui/button";
+import { useStore } from "@/hooks/use-store";
+import { cn } from "@/lib/utils";
+import { PanelsTopLeft } from "lucide-react";
+import Link from "next/link";
 import { create } from "zustand";
-import { persist, createJSONStorage } from "zustand/middleware";
-import { SidebarToggle } from "./sidebar-toggle";
+import { createJSONStorage, persist } from "zustand/middleware";
 import { Menu } from "./menu";
-import { FC, PropsWithChildren } from "react";
+import { SidebarToggle } from "./sidebar-toggle";
 import { SignOutSubmitButton } from "./signout-submit-button";
 
 interface useSidebarToggleStore {

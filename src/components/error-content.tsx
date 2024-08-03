@@ -13,11 +13,15 @@ export const ErrorContent: FC<{ reset: () => void }> = ({ reset }) => {
           We're sorry, but an unexpected error has occurred. Please try again
           later or contact support if the issue persists.
         </p>
-        <div className="mt-6">
+        <div className="mt-6 flex items-center justify-center gap-5">
           <Button
-            className="inline-flex items-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-sm transition-colors hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-            onClick={reset}
+            variant="secondary"
+            className="w-32"
+            onClick={() => window.location.reload()}
           >
+            Refresh page
+          </Button>
+          <Button className="w-32" onClick={reset}>
             Try Again
           </Button>
         </div>

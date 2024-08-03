@@ -1,6 +1,6 @@
 import { AlertCircle } from "lucide-react";
 import React, { FC, PropsWithChildren } from "react";
-import { Alert, AlertTitle, AlertDescription } from "./ui/alert";
+import { Alert, AlertTitle, AlertDescription } from "@components/ui/alert";
 
 type ErrorAlertProps = PropsWithChildren;
 

@@ -1,14 +1,12 @@
 import { PropsWithChildren } from "react";
-import { Navbar } from "./navbar";
+import { Navbar } from "@components/navbar";
 
-type ContentLayoutProps = PropsWithChildren<{
-  title: string;
-}>;
+type ContentLayoutProps = PropsWithChildren;
 
-export const ContentLayout = ({ title, children }: ContentLayoutProps) => {
+export const ContentLayout = ({ children }: ContentLayoutProps) => {
   return (
     <div>
-      <Navbar title={title} />
+      <Navbar />
       <div className="container px-4 pb-8 pt-8 sm:px-8">{children}</div>
     </div>
   );

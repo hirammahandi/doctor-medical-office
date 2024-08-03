@@ -2,13 +2,13 @@ import { logout } from "@/features/authentication/actions";
 import { cn } from "@/lib/utils";
 import { LogOut } from "lucide-react";
 import { FC } from "react";
-import { Button } from "../ui/button";
+import { Button } from "@components/ui/button";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "../ui/tooltip";
+} from "@components/ui/tooltip";
 import { useFormStatus } from "react-dom";
 
 type SignOutSubmitButtonProps = {

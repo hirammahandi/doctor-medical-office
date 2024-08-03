@@ -1,7 +1,7 @@
 "use client";
 
+import { ErrorAlert } from "@/components/error-alert";
 import { PasswordInput } from "@/components/password-input";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -21,10 +21,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { ClientRoutes } from "@/utils/clients-routes";
-import { AlertCircle } from "lucide-react";
 import Link from "next/link";
 import { useSignupAction } from "../_hooks/use-signup-action";
-import { ErrorAlert } from "@/components/error-alert";
 
 export const RegisterForm = () => {
   const {

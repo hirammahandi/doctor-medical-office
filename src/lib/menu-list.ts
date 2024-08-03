@@ -1,15 +1,10 @@
 import { ClientRoutes } from "@/utils/clients-routes";
 import {
-  Tag,
-  Users,
-  Settings,
-  Bookmark,
-  SquarePen,
+  BookOpen,
   LayoutGrid,
   LucideIcon,
-  User,
   Stethoscope,
-  BookOpen,
+  Users,
 } from "lucide-react";
 
 type Submenu = {
@@ -39,9 +34,9 @@ export function getMenuList(pathname: string): Group[] {
         {
           href: ClientRoutes.DASHBOARD,
           label: "Dashboard",
-          active: [ClientRoutes.DASHBOARD, ClientRoutes.HOME].includes(
-            pathname,
-          ),
+          active: (
+            [ClientRoutes.DASHBOARD, ClientRoutes.HOME] as string[]
+          ).includes(pathname as ClientRoutes),
           icon: LayoutGrid,
           submenus: [],
         },
