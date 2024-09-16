@@ -1,5 +1,5 @@
-import { z } from "zod";
-import { loginSchema, signUpSchema } from "../schemas";
+import { type z } from "zod";
+import { type loginSchema, type signUpSchema } from "../schemas";
 
 export type SignUpSchema = z.infer<typeof signUpSchema>;
 

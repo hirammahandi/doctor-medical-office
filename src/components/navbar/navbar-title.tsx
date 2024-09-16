@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { ClientRoutes } from "@/utils/clients-routes";
-import { PAGE_TITLES_BY_ROUTES } from "@/utils/constants";
-import { usePathname } from "next/navigation";
+import { usePathname } from 'next/navigation';
+import { ClientRoutes } from '@/utils/clients-routes';
+import { PAGE_TITLES_BY_ROUTES } from '@/utils/constants';
 
 export const NavbarTitle = () => {
   const pathname = usePathname();
@@ -13,7 +13,7 @@ export const NavbarTitle = () => {
 
   return (
     <h1 className="font-bold">
-      {title || PAGE_TITLES_BY_ROUTES[ClientRoutes.DASHBOARD]}
+      {title ?? PAGE_TITLES_BY_ROUTES[ClientRoutes.DASHBOARD]}
     </h1>
   );
 };

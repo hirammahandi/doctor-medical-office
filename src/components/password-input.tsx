@@ -1,7 +1,7 @@
 import { EyeIcon, EyeOffIcon } from "lucide-react";
-import { ForwardedRef, forwardRef, useState } from "react";
+import { type ForwardedRef, forwardRef, useState } from "react";
 import { Button } from "@components/ui/button";
-import { Input, InputProps } from "@components/ui/input";
+import { Input, type InputProps } from "@components/ui/input";
 import {
   Tooltip,
   TooltipContent,

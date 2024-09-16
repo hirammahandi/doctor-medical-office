@@ -1,8 +1,8 @@
-import { validateRequestSession } from "@/auth";
-import { findUserByEmail } from "@/features/users";
-import { ClientRoutes } from "@/utils/clients-routes";
-import { notFound, redirect } from "next/navigation";
-import { DoctorForm } from "./doctor-form";
+import { notFound, redirect } from 'next/navigation';
+import { validateRequestSession } from '@/auth';
+import { findUserByEmail } from '@/features/users';
+import { ClientRoutes } from '@/utils/clients-routes';
+import { DoctorForm } from './doctor-form';
 
 export const DoctorFormContainer = async () => {
   const { user } = await validateRequestSession();

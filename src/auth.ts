@@ -1,13 +1,17 @@
 // @note this must be imported only in server component or actions
 
-import { PrismaAdapter } from "@lucia-auth/adapter-prisma";
-import { Lucia, Session, User } from "lucia";
-import { Session as PrismaSession, User as PrismaUser } from "@prisma/client";
-import { cookies } from "next/headers";
-import { cache } from "react";
-import prisma from "./lib/prisma";
+import { PrismaAdapter } from '@lucia-auth/adapter-prisma';
+import {
+  type Session as PrismaSession,
+  type User as PrismaUser,
+} from '@prisma/client';
+import { Lucia, type Session, type User } from 'lucia';
+import { cookies } from 'next/headers';
+// eslint-disable-next-line import/named -- This intentional
+import { cache } from 'react';
+import prisma from './lib/prisma';
 
-type UserAttributes = Omit<PrismaUser, "passwordHash">;
+type UserAttributes = Omit<PrismaUser, 'passwordHash'>;
 
 const adapter = new PrismaAdapter(prisma.session, prisma.user);
 
@@ -15,7 +19,7 @@ export const lucia = new Lucia<PrismaSession, UserAttributes>(adapter, {
   sessionCookie: {
     expires: false,
     attributes: {
-      secure: process.env.NODE_ENV === "production",
+      secure: process.env.NODE_ENV === 'production',
     },
   },
   getUserAttributes(databaseUserAttributes) {
@@ -32,22 +36,17 @@ export const lucia = new Lucia<PrismaSession, UserAttributes>(adapter, {
   },
 });
 
-declare module "lucia" {
+declare module 'lucia' {
   interface Register {
     Lucia: typeof lucia;
     DatabaseUserAttributes: DatabaseUserAttributes;
   }
 }
 
-interface DatabaseUserAttributes extends UserAttributes {}
+type DatabaseUserAttributes = UserAttributes;
 
-/**
- * Validates a session by checking if the session ID exists. If the session ID exists, it validates the session and sets session cookies based on the result.
- *
- * @return {Promise<{ user: User; session: Session } | { user: null; session: null }>} A promise with the user and session information if valid, otherwise null values.
- */
 const validateSession = async (): Promise<
-  { user: User; session: Session } | { user: null; session: null }
+  { user: User | null; session: Session | null } | undefined
 > => {
   const sessionId = cookies().get(lucia.sessionCookieName)?.value ?? null;
 
@@ -58,10 +57,10 @@ const validateSession = async (): Promise<
     };
   }
 
-  const result = await lucia.validateSession(sessionId);
-
   try {
-    if (result.session && result.session.fresh) {
+    const result = await lucia.validateSession(sessionId);
+
+    if (result.session?.fresh) {
       const sessionCookie = lucia.createSessionCookie(result.session.id);
       cookies().set(
         sessionCookie.name,
@@ -77,19 +76,22 @@ const validateSession = async (): Promise<
         sessionCookie.attributes,
       );
     }
+    return result;
   } catch (error) {
-    console.log("Error setting session cookie", error);
+    console.log('Error setting session cookie', error);
   }
-
-  return result;
 };
 
-/**
- * Creates a session for the given user ID.
- *
- * @param {string} userId - The ID of the user for whom the session is created.
- * @return {void} No return value.
- */
+const getAuthUser = async () => {
+  const sessionId = cookies().get(lucia.sessionCookieName)?.value ?? null;
+
+  if (!sessionId) return null;
+
+  const { user } = await lucia.validateSession(sessionId);
+
+  return user;
+};
+
 export const createSession = async (userId: string) => {
   const session = await lucia.createSession(userId, {});
   const sessionCookie = lucia.createSessionCookie(session.id);
@@ -101,12 +103,6 @@ export const createSession = async (userId: string) => {
   );
 };
 
-/**
- * Removes a session by invalidating the session ID and setting a new blank session cookie.
- *
- * @param {string} sessionId - The ID of the session to be removed.
- * @return {Promise<void>} A promise that resolves after removing the session.
- */
 export const removeSession = async (sessionId: string) => {
   await lucia.invalidateSession(sessionId);
 
@@ -121,3 +117,4 @@ export const removeSession = async (sessionId: string) => {
 
 // @note deduplicate the validateRequest function for throw only once
 export const validateRequestSession = cache(validateSession);
+export const getAuthUserPayload = cache(getAuthUser);

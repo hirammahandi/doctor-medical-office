@@ -1,6 +1,7 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
+import { type FC } from 'react';
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -8,7 +9,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from '@/components/ui/card';
 import {
   Form,
   FormControl,
@@ -16,11 +17,10 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { FindUserResult } from "@/features/users/types";
-import { FC } from "react";
-import { useUpdateDoctorAction } from "../_hooks/use-update-doctor-action";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { type FindUserResult } from '@/features/users/types';
+import { useUpdateDoctorAction } from '../_hooks/use-update-doctor-action';
 
 type DoctorFormProps = {
   user: FindUserResult;
@@ -53,7 +53,7 @@ export const DoctorForm: FC<DoctorFormProps> = ({ user }) => {
                     <FormItem>
                       <FormLabel>First Name</FormLabel>
                       <FormControl>
-                        <Input autoFocus placeholder="John" {...field} />
+                        <Input placeholder="John" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

@@ -1,4 +1,6 @@
-"use client";
+'use client';
+
+import { useEffect } from 'react';
 
 export default function GlobalError({
   error,
@@ -7,12 +9,18 @@ export default function GlobalError({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+  useEffect(() => {
+    console.error(error);
+  }, [error]);
+
   // TODO: Use the same layout styles
   return (
-    <html>
+    <html lang="en">
       <body>
         <h2>Something went wrong! Globa-Error</h2>
-        <button onClick={() => reset()}>Try again</button>
+        <button onClick={() => reset()} type="button">
+          Try again
+        </button>
       </body>
     </html>
   );

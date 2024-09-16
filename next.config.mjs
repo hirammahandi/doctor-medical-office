@@ -5,6 +5,11 @@ const nextConfig = {
       dynamic: 30,
     },
   },
+  logging: {
+    fetches: {
+      fullUrl: true,
+    },
+  },
   serverExternalPackages: ["@node-rs/argon2"],
   rewrites() {
     return [

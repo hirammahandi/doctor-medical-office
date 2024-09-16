@@ -11,6 +11,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 3.9%;
     --primary: 214 97% 59%;
+    /* hsl(0 0% 98%) */
     --primary-foreground: 0 0% 98%;
     /* hsl(163.28 88.49% 31%) */
     --secondary: 163.28 88.49% 31%;
@@ -74,6 +75,13 @@
   }
 }
 
+/*
+body {
+                  color-track color-thumb
+  scrollbar-color: blue green;
+  scrollbar-width: 1rem;
+} */
+
 p {
   text-wrap: balance;
 }
@@ -83,4 +91,16 @@ input:-webkit-autofill:focus {
   transition:
     background-color 600000s 0s,
     color 600000s 0s;
+}
+
+.shadow-animation {
+  animation-timeline: scroll();
+  animation-name: shadowProgress;
+  box-shadow: none;
+}
+
+@keyframes shadowProgress {
+  to {
+    box-shadow: 0 4px 4px 0.2rem hsl(var(--primary-foreground));
+  }
 }

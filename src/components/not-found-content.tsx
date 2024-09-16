@@ -1,6 +1,6 @@
-import { ClientRoutes } from "@/utils/clients-routes";
-import { FrownIcon } from "lucide-react";
-import Link from "next/link";
+import { FrownIcon } from 'lucide-react';
+import Link from 'next/link';
+import { ClientRoutes } from '@/utils/clients-routes';
 
 export const NotFoundContent = () => {
   return (
@@ -11,7 +11,7 @@ export const NotFoundContent = () => {
           Oops, page not found!
         </h1>
         <p className="mt-4 text-muted-foreground">
-          The page you're looking for doesn't exist or has been moved.
+          The page you&apos;re looking for doesn&apos;t exist or has been moved.
         </p>
         <div className="mt-6">
           <Link

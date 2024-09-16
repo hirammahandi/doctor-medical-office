@@ -1,8 +1,9 @@
-"use client";
+'use client';
 
-import { ErrorAlert } from "@/components/error-alert";
-import { PasswordInput } from "@/components/password-input";
-import { Button } from "@/components/ui/button";
+import Link from 'next/link';
+import { ErrorAlert } from '@/components/error-alert';
+import { PasswordInput } from '@/components/password-input';
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -10,7 +11,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from '@/components/ui/card';
 import {
   Form,
   FormControl,
@@ -18,11 +19,10 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { ClientRoutes } from "@/utils/clients-routes";
-import Link from "next/link";
-import { useSignupAction } from "../_hooks/use-signup-action";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { ClientRoutes } from '@/utils/clients-routes';
+import { useSignupAction } from '../_hooks/use-signup-action';
 
 export const RegisterForm = () => {
   const {
@@ -37,7 +37,9 @@ export const RegisterForm = () => {
         <CardDescription className="text-balance">
           Enter your details below to sign up for our platform.
         </CardDescription>
-        {errorResponse && <ErrorAlert>{errorResponse.message}</ErrorAlert>}
+        {errorResponse ? (
+          <ErrorAlert>{errorResponse.message}</ErrorAlert>
+        ) : null}
       </CardHeader>
       <Form {...form}>
         <form onSubmit={handleSignUp} noValidate>

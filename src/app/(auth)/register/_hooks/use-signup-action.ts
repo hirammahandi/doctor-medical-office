@@ -1,8 +1,8 @@
-import { SignUpSchema, signUpSchema } from "@/features/authentication";
-import { signUp } from "@/features/authentication/actions";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { type SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { signUp } from "@/features/authentication/actions";
+import { type SignUpSchema, signUpSchema } from "@/features/authentication";
 
 export const useSignupAction = () => {
   const form = useForm<SignUpSchema>({

@@ -1,5 +1,5 @@
-import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
+import * as VisuallyHiddenComponent from '@radix-ui/react-visually-hidden';
 
-export default (props: VisuallyHidden.VisuallyHiddenProps) => (
-  <VisuallyHidden.Root {...props} />
-);
+export const VisuallyHidden = (
+  props: VisuallyHiddenComponent.VisuallyHiddenProps,
+) => <VisuallyHiddenComponent.Root {...props} />;
