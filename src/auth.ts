@@ -1,3 +1,4 @@
+/* eslint-disable import/named -- This is intentional */
 // @note this must be imported only in server component or actions
 
 import { PrismaAdapter } from '@lucia-auth/adapter-prisma';
@@ -7,7 +8,6 @@ import {
 } from '@prisma/client';
 import { Lucia, type Session, type User } from 'lucia';
 import { cookies } from 'next/headers';
-// eslint-disable-next-line import/named -- This intentional
 import { cache } from 'react';
 import prisma from './lib/prisma';
 
@@ -46,9 +46,14 @@ declare module 'lucia' {
 type DatabaseUserAttributes = UserAttributes;
 
 const validateSession = async (): Promise<
-  { user: User | null; session: Session | null } | undefined
+  | {
+      user: User;
+      session: Session;
+    }
+  | { user: null; session: null }
 > => {
-  const sessionId = cookies().get(lucia.sessionCookieName)?.value ?? null;
+  const sessionId =
+    (await cookies()).get(lucia.sessionCookieName)?.value ?? null;
 
   if (!sessionId) {
     return {
@@ -59,10 +64,9 @@ const validateSession = async (): Promise<
 
   try {
     const result = await lucia.validateSession(sessionId);
-
     if (result.session?.fresh) {
       const sessionCookie = lucia.createSessionCookie(result.session.id);
-      cookies().set(
+      (await cookies()).set(
         sessionCookie.name,
         sessionCookie.value,
         sessionCookie.attributes,
@@ -70,7 +74,7 @@ const validateSession = async (): Promise<
     }
     if (!result.session) {
       const sessionCookie = lucia.createBlankSessionCookie();
-      cookies().set(
+      (await cookies()).set(
         sessionCookie.name,
         sessionCookie.value,
         sessionCookie.attributes,
@@ -79,11 +83,16 @@ const validateSession = async (): Promise<
     return result;
   } catch (error) {
     console.log('Error setting session cookie', error);
+    return {
+      session: null,
+      user: null,
+    };
   }
 };
 
 const getAuthUser = async () => {
-  const sessionId = cookies().get(lucia.sessionCookieName)?.value ?? null;
+  const sessionId =
+    (await cookies()).get(lucia.sessionCookieName)?.value ?? null;
 
   if (!sessionId) return null;
 
@@ -96,7 +105,7 @@ export const createSession = async (userId: string) => {
   const session = await lucia.createSession(userId, {});
   const sessionCookie = lucia.createSessionCookie(session.id);
 
-  cookies().set(
+  (await cookies()).set(
     sessionCookie.name,
     sessionCookie.value,
     sessionCookie.attributes,
@@ -108,7 +117,7 @@ export const removeSession = async (sessionId: string) => {
 
   const sessionCookie = lucia.createBlankSessionCookie();
 
-  cookies().set(
+  (await cookies()).set(
     sessionCookie.name,
     sessionCookie.value,
     sessionCookie.attributes,

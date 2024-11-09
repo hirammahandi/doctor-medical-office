@@ -116,7 +116,11 @@ export const AddPatientModal = () => {
             />
             <DialogFooter>
               <DialogClose asChild>
-                <Button disabled={isLoading} type="button" variant="outline">
+                <Button
+                  disabled={isLoading}
+                  type="button"
+                  variant="outline-destructive"
+                >
                   Cancel
                 </Button>
               </DialogClose>

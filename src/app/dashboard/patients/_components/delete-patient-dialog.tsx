@@ -1,6 +1,7 @@
-import { Trash2Icon } from "lucide-react";
-import { type FC } from "react";
-import { Button } from "@/components/ui/button";
+import { Trash2Icon } from 'lucide-react';
+import { type FC } from 'react';
+import { DialogClose } from '@radix-ui/react-dialog';
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -9,8 +10,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import { useDeletePatientActions } from "../_hooks/use-delete-patient-action";
+} from '@/components/ui/dialog';
+import { useDeletePatientActions } from '../_hooks/use-delete-patient-action';
 
 type DeletePatientDialogProps = {
   patientId: string;
@@ -44,9 +45,15 @@ export const DeletePatientDialog: FC<DeletePatientDialogProps> = ({
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <Button variant="outline" disabled={isPending} type="button">
-            Cancel
-          </Button>
+          <DialogClose asChild>
+            <Button
+              variant="outline-destructive"
+              disabled={isPending}
+              type="button"
+            >
+              Cancel
+            </Button>
+          </DialogClose>
           <Button
             type="button"
             isLoading={isPending}

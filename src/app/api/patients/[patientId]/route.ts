@@ -69,6 +69,7 @@ export const DELETE = async (
 
     return NextResponse.json({ response });
   } catch (error) {
+    console.error(error);
     // Check for abort after catching an error
     if (request.signal.aborted || requestAborted) {
       return NextResponse.json(

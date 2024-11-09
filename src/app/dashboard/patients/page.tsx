@@ -1,17 +1,29 @@
-import { Suspense } from "react";
-import { PatientsContainer } from "./_components/patients-container";
-import { PatientsHeader } from "./_components/patients-header";
+import { Suspense } from 'react';
+import { Loader } from '@/components/ui/loader';
+import { PatientsContainer } from './_components/patients-container';
+import { PatientsHeader } from './_components/patients-header';
 
-export const dynamic = "force-dynamic";
+type SearchParams = Promise<{ search?: string }>;
 
-const PatientsPage = () => {
+const PatientsPage = async ({
+  searchParams,
+}: {
+  searchParams: SearchParams;
+}) => {
+  // @note to get the params and searchParams must be use async await. Refer https://nextjs.org/docs/messages/sync-dynamic-apis
+  const { search } = await searchParams;
+
   return (
-    // TODO: Make a loader
     <>
-      <PatientsHeader />
+      <PatientsHeader key={search} />
       <div className="mx-auto w-full">
-        <Suspense fallback={<div>Loading...</div>}>
-          <PatientsContainer />
+        <Suspense
+          key={search}
+          fallback={
+            <Loader className="grid place-content-center min-h-[70dvh]" />
+          }
+        >
+          <PatientsContainer search={search} />
         </Suspense>
       </div>
     </>

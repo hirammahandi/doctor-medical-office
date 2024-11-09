@@ -1,4 +1,5 @@
-import { Children, type ReactNode } from 'react';
+/* eslint-disable react/no-array-index-key -- This is intentional */
+import { Children, Fragment, type ReactNode } from 'react';
 
 interface EachElementProps<T extends unknown[]> {
   of: T;
@@ -10,6 +11,8 @@ export const EachElement = <T extends unknown[]>({
   render,
 }: EachElementProps<T>) => {
   return Children.toArray(
-    of.map((item: T[number], index: number) => render(item, index)),
+    of.map((item: T[number], index: number) => (
+      <Fragment key={index}>{render(item, index)}</Fragment>
+    )),
   );
 };

@@ -15,6 +15,6 @@ export const createPatientSchema = z.object({
 
 export const deletePatientSchema = requiredUuid;
 
-export const setNameSearchParamSchema = z.object({
-  name: requiredString,
+export const setSearchParamSchema = z.object({
+  search: z.string().optional(),
 });

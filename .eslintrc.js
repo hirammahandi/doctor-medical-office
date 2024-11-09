@@ -25,7 +25,10 @@ module.exports = {
       },
     },
   },
+  ignorePatterns: ['.eslintrc.js'],
   rules: {
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': ['error'],
     'import/no-default-export': 'off',
     'react/function-component-definition': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
@@ -33,7 +36,6 @@ module.exports = {
     'no-implicit-coercion': 'off',
     'no-console': 'off',
     'jsx-a11y/heading-has-content': 'off',
-    'no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
     '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
     'prefer-named-capture-group': 'warn',
     'no-useless-escape': 'warn',
@@ -42,6 +44,8 @@ module.exports = {
     'unicorn/filename-case': 'off',
     '@typescript-eslint/consistent-type-definitions': 'off',
     'react/no-unstable-nested-components': 'off',
+    'react/button-has-type': 'off',
+    '@typescript-eslint/naming-convention': 'off',
     '@typescript-eslint/no-misused-promises': [
       'error',
       {

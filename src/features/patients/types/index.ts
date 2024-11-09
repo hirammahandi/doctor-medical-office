@@ -1,6 +1,9 @@
 import { type z } from 'zod';
 import { type Patient } from '@prisma/client';
-import { type createPatientSchema, type setNameSearchParamSchema } from '../schemas';
+import {
+  type createPatientSchema,
+  type setSearchParamSchema,
+} from '../schemas';
 
 export type CreatePatientSchema = z.infer<typeof createPatientSchema>;
 
@@ -11,4 +14,4 @@ export type GetPatientsPaginatedResult = {
   total: number;
 };
 
-export type SetNameSearchParamSchema = z.infer<typeof setNameSearchParamSchema>;
+export type SetNameSearchParamSchema = z.infer<typeof setSearchParamSchema>;

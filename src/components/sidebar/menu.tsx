@@ -63,8 +63,11 @@ export const Menu: FC<MenuProps> = ({ isOpen, children }) => {
         <ul className="flex min-h-[calc(100dvh-48px-36px-16px-32px)] flex-col items-start space-y-1 px-2 lg:min-h-[calc(100dvh-32px-40px-32px)]">
           <EachElement
             of={menuList}
-            render={({ groupLabel, menus }) => (
-              <li className={cn('w-full', groupLabel ? 'pt-5' : '')}>
+            render={({ groupLabel, menus }, index) => (
+              <li
+                key={index}
+                className={cn('w-full', groupLabel ? 'pt-5' : '')}
+              >
                 <MenuListItem groupLabel={groupLabel} isOpen={isOpen} />
                 <EachElement
                   of={menus}

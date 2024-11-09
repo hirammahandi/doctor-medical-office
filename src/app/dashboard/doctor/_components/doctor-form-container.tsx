@@ -5,10 +5,11 @@ import { ClientRoutes } from '@/utils/clients-routes';
 import { DoctorForm } from './doctor-form';
 
 export const DoctorFormContainer = async () => {
-  const { user } = await validateRequestSession();
-  const email = user?.email;
+  const { user, session } = await validateRequestSession();
 
-  if (!email) redirect(ClientRoutes.LOGIN);
+  if (!session) redirect(ClientRoutes.LOGIN);
+
+  const email = user.email;
 
   const findUser = await findUserByEmail(email, {
     select: {

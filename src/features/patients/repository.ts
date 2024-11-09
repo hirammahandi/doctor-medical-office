@@ -1,6 +1,11 @@
 import { type Prisma } from '@prisma/client';
 import prisma from '@/lib/prisma';
 import { type GetPatientsPaginatedResult } from './types';
+import {
+  PATIENTS_INITIAL_PAGE,
+  PATIENTS_INITIAL_SKIP,
+  PATIENTS_PER_PAGE,
+} from './constants';
 
 export const findPatientsByDoctorId = async (
   doctorId: string,
@@ -9,8 +14,8 @@ export const findPatientsByDoctorId = async (
     take?: number;
     search?: string;
   } = {
-    skip: 0,
-    take: 5,
+    skip: PATIENTS_INITIAL_SKIP,
+    take: PATIENTS_PER_PAGE,
   },
 ) => {
   const patients = await prisma.patient.findMany({
@@ -18,6 +23,11 @@ export const findPatientsByDoctorId = async (
       userId: doctorId,
       name: {
         search: queries.search,
+        mode: 'insensitive',
+      },
+      lastName: {
+        search: queries.search,
+        mode: 'insensitive',
       },
     },
     skip: queries.skip,
@@ -45,10 +55,10 @@ export const countOfPatientsByDoctorId = async (doctorId: string) => {
 };
 
 export const findPaginatedPatients = async ({
-  currentPage = 1,
+  currentPage = PATIENTS_INITIAL_PAGE,
   userId,
   search,
-  take = 6,
+  take = PATIENTS_PER_PAGE,
 }: {
   currentPage?: number;
   userId: string;

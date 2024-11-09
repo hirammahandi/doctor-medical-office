@@ -1,16 +1,16 @@
-import { EyeIcon, EyeOffIcon } from "lucide-react";
-import { type ForwardedRef, forwardRef, useState } from "react";
-import { Button } from "@components/ui/button";
-import { Input, type InputProps } from "@components/ui/input";
+import { EyeIcon, EyeOffIcon } from 'lucide-react';
+import { type ForwardedRef, forwardRef, useState } from 'react';
+import { Button } from '@components/ui/button';
+import { Input, type InputProps } from '@components/ui/input';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@components/ui/tooltip";
-import { DEFAULT_PASSWORD_PLACEHOLDER } from "@/utils/constants";
+} from '@components/ui/tooltip';
+import { DEFAULT_PASSWORD_PLACEHOLDER } from '@/utils/constants';
 
-type PasswordInputProps = Omit<InputProps, "type">;
+type PasswordInputProps = Omit<InputProps, 'type'>;
 
 const PasswordInputWithRef = (
   { placeholder = DEFAULT_PASSWORD_PLACEHOLDER, ...props }: PasswordInputProps,
@@ -23,9 +23,10 @@ const PasswordInputWithRef = (
   return (
     <Input
       placeholder={placeholder}
+      autoComplete="off"
       {...props}
       ref={ref}
-      type={isPassword ? "password" : "text"}
+      type={isPassword ? 'password' : 'text'}
       endAdornment={
         <TooltipProvider delayDuration={100}>
           <Tooltip>
@@ -44,7 +45,7 @@ const PasswordInputWithRef = (
               </Button>
             </TooltipTrigger>
             <TooltipContent>
-              <p>{isPassword ? "Show password" : "Hide password"}</p>
+              <p>{isPassword ? 'Show password' : 'Hide password'}</p>
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>

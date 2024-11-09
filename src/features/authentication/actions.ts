@@ -3,18 +3,13 @@
 import { hash, verify } from '@node-rs/argon2';
 import { generateIdFromEntropySize } from 'lucia';
 import { isRedirectError } from 'next/dist/client/components/redirect';
-import { type ActionResult } from 'next/dist/server/app-render/types';
 import { redirect } from 'next/navigation';
 import { ErrorsMessages } from '@/utils/constants';
 import { ClientRoutes } from '@/utils/clients-routes';
-import {
-  type LoginSchema,
-  loginSchema,
-  type SignUpSchema,
-  signUpSchema,
-} from '@/features/authentication';
 import { createSession, removeSession, validateRequestSession } from '@/auth';
 import { createUser, findUserByEmail, findUserByUsername } from '../users';
+import { loginSchema, signUpSchema } from './schemas';
+import { type LoginSchema, type SignUpSchema } from './types';
 
 export const login = async (
   credentials: LoginSchema,
@@ -109,7 +104,7 @@ export const signUp = async (
   }
 };
 
-export const logout = async (): Promise<ActionResult> => {
+export const logout = async () => {
   'use server';
 
   const { session } = await validateRequestSession();
@@ -120,5 +115,5 @@ export const logout = async (): Promise<ActionResult> => {
 
   await removeSession(session.id);
 
-  return redirect(ClientRoutes.LOGIN);
+  redirect(ClientRoutes.LOGIN);
 };

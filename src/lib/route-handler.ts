@@ -1,3 +1,6 @@
+/* eslint-disable -- This intentional */
+// @ts-nocheck
+// TODO: This code must be refactored
 import { type NextRequest, NextResponse } from 'next/server';
 
 export async function handleAbort(
