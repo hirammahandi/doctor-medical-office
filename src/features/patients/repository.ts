@@ -40,14 +40,26 @@ export const findPatientsByDoctorId = async (
   return patients;
 };
 
-export const createPatient = async (patient: Prisma.PatientCreateInput) => {
-  return await prisma.patient.create({
+export const createPatient = (patient: Prisma.PatientCreateInput) => {
+  return prisma.patient.create({
     data: patient,
   });
 };
 
-export const countOfPatientsByDoctorId = async (doctorId: string) => {
-  return await prisma.patient.count({
+export const updatePatient = (
+  id: string,
+  patient: Prisma.PatientUpdateInput,
+) => {
+  return prisma.patient.update({
+    where: {
+      id,
+    },
+    data: patient,
+  });
+};
+
+export const countOfPatientsByDoctorId = (doctorId: string) => {
+  return prisma.patient.count({
     where: {
       userId: doctorId,
     },

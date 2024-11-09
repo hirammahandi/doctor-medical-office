@@ -5,7 +5,7 @@ import {
   requiredUuid,
 } from '@/utils/validation';
 
-export const createPatientSchema = z.object({
+export const upsertPatientSchema = z.object({
   name: requiredString,
   lastName: requiredString,
   age: requiredNumber,

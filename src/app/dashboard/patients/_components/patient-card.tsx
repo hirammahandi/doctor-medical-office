@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { DeletePatientDialog } from './delete-patient-dialog';
+import { UpsertPatientModalForm } from './upsert-patient-modal-form';
 
 type PatientCardProps = {
   patient: Patient;
@@ -38,13 +39,13 @@ export const PatientCard: FC<PatientCardProps> = ({ patient }) => {
     <Card className="transition-all hover:bg-muted">
       <CardHeader>
         <CardTitle className="flex items-center justify-between">
-          <span>{fullName}</span>
+          <span className="truncate">{fullName}</span>
           {date ? (
             <Badge variant="secondary">{format(date, 'dd/MM/yyyy')}</Badge>
           ) : null}
         </CardTitle>
         <CardDescription>
-          <Label htmlFor="identification" className="font-medium">
+          <Label htmlFor="identification" className="font-medium truncate">
             Identification:
           </Label>{' '}
           {identification}
@@ -65,9 +66,14 @@ export const PatientCard: FC<PatientCardProps> = ({ patient }) => {
         </div>
       </CardContent>
       <CardFooter className="flex items-center justify-end gap-2">
-        <Button variant="secondary" size="icon">
-          <PencilIcon className="size-4" />
-        </Button>
+        <UpsertPatientModalForm
+          patient={patient}
+          buttonTrigger={
+            <Button variant="secondary" size="icon">
+              <PencilIcon className="size-4" />
+            </Button>
+          }
+        />
         <DeletePatientDialog patientId={id} patientName={fullName} />
       </CardFooter>
     </Card>

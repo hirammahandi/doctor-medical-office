@@ -6,12 +6,16 @@ import { redirect } from 'next/navigation';
 import { validateRequestSession } from '@/auth';
 import { ClientRoutes } from '@/utils/clients-routes';
 import { ErrorsMessages } from '@/utils/constants';
-import { createPatient, deletePatientByDoctorId } from './repository';
-import { createPatientSchema, deletePatientSchema } from './schemas';
-import { type CreatePatientSchema } from './types';
+import {
+  createPatient,
+  deletePatientByDoctorId,
+  updatePatient,
+} from './repository';
+import { upsertPatientSchema, deletePatientSchema } from './schemas';
+import { type UpsertPatientSchema } from './types';
 
 export const addNewPatient = async (
-  patient: CreatePatientSchema,
+  patient: UpsertPatientSchema,
 ): Promise<
   | {
       error: string;
@@ -19,7 +23,7 @@ export const addNewPatient = async (
   | undefined
 > => {
   try {
-    const parsedPatientData = createPatientSchema.parse(patient);
+    const parsedPatientData = upsertPatientSchema.parse(patient);
     const { session, user } = await validateRequestSession();
 
     if (!session) {
@@ -40,6 +44,36 @@ export const addNewPatient = async (
   } catch (error) {
     if (isRedirectError(error)) throw error;
     console.log('Error adding new patient', error);
+
+    return {
+      error: ErrorsMessages.SOMETHING_WENT_WRONG,
+    };
+  }
+};
+
+export const updateExistPatient = async (
+  patientId: string,
+  patient: UpsertPatientSchema,
+): Promise<
+  | {
+      error: string;
+    }
+  | undefined
+> => {
+  try {
+    const { session } = await validateRequestSession();
+
+    if (!session) {
+      redirect(ClientRoutes.LOGIN);
+    }
+
+    const parsedPatientData = upsertPatientSchema.parse(patient);
+
+    await updatePatient(patientId, parsedPatientData);
+    revalidatePath(ClientRoutes.PATIENTS, 'page');
+  } catch (error) {
+    if (isRedirectError(error)) throw error;
+    console.log('Error updating new patient', error);
 
     return {
       error: ErrorsMessages.SOMETHING_WENT_WRONG,

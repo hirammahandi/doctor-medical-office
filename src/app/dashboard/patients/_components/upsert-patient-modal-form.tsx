@@ -1,6 +1,8 @@
 'use client';
 
 import { DialogClose, DialogTrigger } from '@radix-ui/react-dialog';
+import { type Patient } from '@prisma/client';
+import { type ReactNode, type FC } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -20,24 +22,37 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@components/ui/dialog';
-import { useCreatePatientAction } from '../_hooks/use-create-patient-action';
+import { contentData } from '@/lib/content-data';
+import { useUpsertPatientAction } from '../_hooks/use-upsert-patient-action';
 
-export const AddPatientModal = () => {
+type UpsertPatientModalFormProps = {
+  patient?: Patient;
+  buttonTrigger: ReactNode;
+};
+
+export const UpsertPatientModalForm: FC<UpsertPatientModalFormProps> = ({
+  patient,
+  buttonTrigger,
+}) => {
   const {
     states: { form, isLoading, openDialog },
     actions: { handleCreatePatient, handleOpenDialog },
-  } = useCreatePatientAction();
+  } = useUpsertPatientAction({ patient });
 
   return (
     <Dialog open={openDialog} onOpenChange={handleOpenDialog}>
-      <DialogTrigger asChild>
-        <Button>Add Patient</Button>
-      </DialogTrigger>
+      <DialogTrigger asChild>{buttonTrigger}</DialogTrigger>
       <DialogContent className="w-11/12 max-w-3xl md:w-full">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold">New Patient</DialogTitle>
+          <DialogTitle className="text-2xl font-bold">
+            {patient?.id
+              ? contentData.upsertPatientContentData.update.title
+              : contentData.upsertPatientContentData.create.title}
+          </DialogTitle>
           <DialogDescription>
-            Enter the patient`&apos;`s information below.
+            {patient?.id
+              ? contentData.upsertPatientContentData.update.description
+              : contentData.upsertPatientContentData.create.description}
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -48,9 +63,16 @@ export const AddPatientModal = () => {
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>First Name</FormLabel>
+                    <FormLabel>
+                      {contentData.globalContentData.labels.firstName}
+                    </FormLabel>
                     <FormControl>
-                      <Input placeholder="John" {...field} />
+                      <Input
+                        placeholder={
+                          contentData.globalContentData.placeholders.firstName
+                        }
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -61,9 +83,16 @@ export const AddPatientModal = () => {
                 name="lastName"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Last Name</FormLabel>
+                    <FormLabel>
+                      {contentData.globalContentData.labels.lastName}
+                    </FormLabel>
                     <FormControl>
-                      <Input placeholder="Doe" {...field} />
+                      <Input
+                        placeholder={
+                          contentData.globalContentData.placeholders.lastName
+                        }
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -76,9 +105,17 @@ export const AddPatientModal = () => {
                 name="age"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Age</FormLabel>
+                    <FormLabel>
+                      {contentData.globalContentData.labels.age}
+                    </FormLabel>
                     <FormControl>
-                      <Input type="number" placeholder="35" {...field} />
+                      <Input
+                        type="number"
+                        placeholder={
+                          contentData.globalContentData.placeholders.age
+                        }
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -89,9 +126,17 @@ export const AddPatientModal = () => {
                 name="identification"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Identification</FormLabel>
+                    <FormLabel>
+                      {contentData.globalContentData.labels.identification}
+                    </FormLabel>
                     <FormControl>
-                      <Input placeholder="123456789" {...field} />
+                      <Input
+                        placeholder={
+                          contentData.globalContentData.placeholders
+                            .identification
+                        }
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -103,10 +148,14 @@ export const AddPatientModal = () => {
               name="address"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Address</FormLabel>
+                  <FormLabel>
+                    {contentData.globalContentData.labels.address}
+                  </FormLabel>
                   <FormControl>
                     <Textarea
-                      placeholder="123 Main St, Anytown USA"
+                      placeholder={
+                        contentData.globalContentData.placeholders.address
+                      }
                       {...field}
                     />
                   </FormControl>
@@ -121,11 +170,13 @@ export const AddPatientModal = () => {
                   type="button"
                   variant="outline-destructive"
                 >
-                  Cancel
+                  {contentData.globalContentData.cancel}
                 </Button>
               </DialogClose>
               <Button isLoading={isLoading} type="submit">
-                Create Patient
+                {patient?.id
+                  ? contentData.globalContentData.update
+                  : contentData.globalContentData.create}
               </Button>
             </DialogFooter>
           </form>

@@ -1,4 +1,6 @@
-import { AddPatientModal } from './add-patient-modal';
+import { Button } from '@/components/ui/button';
+import { contentData } from '@/lib/content-data';
+import { UpsertPatientModalForm } from './upsert-patient-modal-form';
 
 export const EmptyPatientsView = () => {
   return (
@@ -9,7 +11,13 @@ export const EmptyPatientsView = () => {
           It looks like you don&apos;t have any patients to display yet.
           Let&apos;s get started by adding some new patients.
         </p>
-        <AddPatientModal />
+        <UpsertPatientModalForm
+          buttonTrigger={
+            <Button>
+              {contentData.upsertPatientContentData.create.addButtonTrigger}
+            </Button>
+          }
+        />
       </div>
     </div>
   );
