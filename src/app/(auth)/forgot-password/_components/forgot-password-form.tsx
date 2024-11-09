@@ -1,4 +1,5 @@
-import { Button } from "@/components/ui/button";
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -6,11 +7,10 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { ClientRoutes } from "@/utils/clients-routes";
-import Link from "next/link";
+} from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { ClientRoutes } from '@/utils/clients-routes';
 
 export const ForgotPasswordForm = () => {
   return (
@@ -18,8 +18,8 @@ export const ForgotPasswordForm = () => {
       <CardHeader>
         <CardTitle className="text-2xl">Forgot Password</CardTitle>
         <CardDescription>
-          Enter your email address and we'll send you a link to reset your
-          password.
+          Enter your email address and we`&apos;`ll send you a link to reset
+          your password.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">

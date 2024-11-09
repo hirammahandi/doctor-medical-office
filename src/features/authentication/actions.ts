@@ -1,30 +1,25 @@
-"use server";
+'use server';
 
-import { createSession, removeSession, validateRequestSession } from "@/auth";
-import {
-  LoginSchema,
-  loginSchema,
-  SignUpSchema,
-  signUpSchema,
-} from "@/features/authentication";
-import { ClientRoutes } from "@/utils/clients-routes";
-import { ErrorsMessages } from "@/utils/constants";
-import { hash, verify } from "@node-rs/argon2";
-import { generateIdFromEntropySize } from "lucia";
-import { isRedirectError } from "next/dist/client/components/redirect";
-import { ActionResult } from "next/dist/server/app-render/types";
-import { redirect } from "next/navigation";
-import { createUser, findUserByEmail, findUserByUsername } from "../users";
+import { hash, verify } from '@node-rs/argon2';
+import { generateIdFromEntropySize } from 'lucia';
+import { isRedirectError } from 'next/dist/client/components/redirect';
+import { redirect } from 'next/navigation';
+import { ErrorsMessages } from '@/utils/constants';
+import { ClientRoutes } from '@/utils/clients-routes';
+import { createSession, removeSession, validateRequestSession } from '@/auth';
+import { createUser, findUserByEmail, findUserByUsername } from '../users';
+import { loginSchema, signUpSchema } from './schemas';
+import { type LoginSchema, type SignUpSchema } from './types';
 
 export const login = async (
   credentials: LoginSchema,
-): Promise<{ error: string } | void> => {
+): Promise<{ error: string } | undefined> => {
   try {
     const { password, email } = loginSchema.parse(credentials);
 
     const existingUser = await findUserByEmail(email);
 
-    if (!existingUser || !existingUser.passwordHash) {
+    if (!existingUser?.passwordHash) {
       return {
         error: ErrorsMessages.WRONG_EMAIL_OR_PASSWORD,
       };
@@ -48,7 +43,7 @@ export const login = async (
     return redirect(ClientRoutes.DASHBOARD);
   } catch (error) {
     if (isRedirectError(error)) throw error;
-    console.log("Error logging in", error);
+    console.log('Error logging in', error);
 
     return {
       error: ErrorsMessages.SOMETHING_WENT_WRONG,
@@ -58,7 +53,7 @@ export const login = async (
 
 export const signUp = async (
   credentials: SignUpSchema,
-): Promise<{ error: string } | void> => {
+): Promise<{ error: string } | undefined> => {
   try {
     const { username, email, lastName, name, password } =
       signUpSchema.parse(credentials);
@@ -101,7 +96,7 @@ export const signUp = async (
   } catch (error) {
     if (isRedirectError(error)) throw error;
 
-    console.log("Error creating user", error);
+    console.log('Error creating user', error);
 
     return {
       error: ErrorsMessages.SOMETHING_WENT_WRONG,
@@ -109,8 +104,8 @@ export const signUp = async (
   }
 };
 
-export const logout = async (): Promise<ActionResult> => {
-  "use server";
+export const logout = async () => {
+  'use server';
 
   const { session } = await validateRequestSession();
 
@@ -120,5 +115,5 @@ export const logout = async (): Promise<ActionResult> => {
 
   await removeSession(session.id);
 
-  return redirect(ClientRoutes.LOGIN);
+  redirect(ClientRoutes.LOGIN);
 };

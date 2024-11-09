@@ -5,3 +5,5 @@ export const hasDifferentValues = <TObject extends Record<string, unknown>>(
   Object.keys(mainObject).some(
     (key) => mainObject[key] !== objectToCompare[key],
   );
+
+export const range = (length: number) => [...Array(length).keys()];

@@ -1,7 +1,7 @@
-import { validateRequestSession } from "@/auth";
-import { ClientRoutes } from "@/utils/clients-routes";
-import { redirect } from "next/navigation";
-import { PropsWithChildren } from "react";
+import { redirect } from 'next/navigation';
+import { type PropsWithChildren } from 'react';
+import { validateRequestSession } from '@/auth';
+import { ClientRoutes } from '@/utils/clients-routes';
 
 const AuthenticationLayout = async ({ children }: PropsWithChildren) => {
   const { session } = await validateRequestSession();

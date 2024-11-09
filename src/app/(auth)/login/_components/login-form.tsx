@@ -1,8 +1,9 @@
-"use client";
+'use client';
 
-import { ErrorAlert } from "@/components/error-alert";
-import { PasswordInput } from "@/components/password-input";
-import { Button } from "@/components/ui/button";
+import Link from 'next/link';
+import { ErrorAlert } from '@/components/error-alert';
+import { PasswordInput } from '@/components/password-input';
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -10,7 +11,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from '@/components/ui/card';
 import {
   Form,
   FormControl,
@@ -18,11 +19,10 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { ClientRoutes } from "@/utils/clients-routes";
-import Link from "next/link";
-import { useLoginAction } from "../_hooks/use-login-action";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { ClientRoutes } from '@/utils/clients-routes';
+import { useLoginAction } from '../_hooks/use-login-action';
 
 export const LoginForm = () => {
   const {
@@ -38,7 +38,7 @@ export const LoginForm = () => {
           Enter your email and password to access your account.
         </CardDescription>
         <CardDescription className="md:text-center">
-          Don&apos;t have an account?{" "}
+          Don&apos;t have an account?{' '}
           <Link
             href={ClientRoutes.REGISTER}
             className="w-full text-center text-sm font-bold text-muted-foreground hover:text-black hover:underline"
@@ -46,9 +46,9 @@ export const LoginForm = () => {
             Sign Up.
           </Link>
         </CardDescription>
-        {errorResponse?.message && (
+        {errorResponse?.message ? (
           <ErrorAlert>{errorResponse.message}</ErrorAlert>
-        )}
+        ) : null}
       </CardHeader>
       <Form {...form}>
         <form onSubmit={handleLogin} noValidate>

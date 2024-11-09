@@ -1,11 +1,11 @@
-import { ClientRoutes } from "@/utils/clients-routes";
 import {
   BookOpen,
   LayoutGrid,
-  LucideIcon,
+  type LucideIcon,
   Stethoscope,
   Users,
-} from "lucide-react";
+} from 'lucide-react';
+import { type ClientRoute, ClientRoutes } from '@/utils/clients-routes';
 
 type Submenu = {
   href: string;
@@ -29,39 +29,39 @@ type Group = {
 export function getMenuList(pathname: string): Group[] {
   return [
     {
-      groupLabel: "",
+      groupLabel: '',
       menus: [
         {
           href: ClientRoutes.DASHBOARD,
-          label: "Dashboard",
+          label: 'Dashboard',
           active: (
             [ClientRoutes.DASHBOARD, ClientRoutes.HOME] as string[]
-          ).includes(pathname as ClientRoutes),
+          ).includes(pathname as ClientRoute),
           icon: LayoutGrid,
           submenus: [],
         },
       ],
     },
     {
-      groupLabel: "Administration",
+      groupLabel: 'Administration',
       menus: [
         {
           href: ClientRoutes.DOCTOR,
-          label: "Doctor",
+          label: 'Doctor',
           active: pathname.includes(ClientRoutes.DOCTOR),
           icon: Stethoscope,
           submenus: [],
         },
         {
           href: ClientRoutes.PATIENTS,
-          label: "Patients",
+          label: 'Patients',
           active: pathname.includes(ClientRoutes.PATIENTS),
           icon: Users,
           submenus: [],
         },
         {
           href: ClientRoutes.CLINICAL_HISTORIES,
-          label: "Clinical Histories",
+          label: 'Clinical Histories',
           active: pathname.includes(ClientRoutes.CLINICAL_HISTORIES),
           icon: BookOpen,
           submenus: [],

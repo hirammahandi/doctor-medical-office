@@ -1,10 +1,10 @@
+import { zodResolver } from "@hookform/resolvers/zod";
+import { type SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { updateDoctor } from "@/features/users/actions";
 import { updateDoctorSchema } from "@/features/users/schemas";
-import { FindUserResult, UpdateDoctorSchema } from "@/features/users/types";
+import { type FindUserResult, type UpdateDoctorSchema } from "@/features/users/types";
 import { hasDifferentValues } from "@/utils/tools";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { toast } from "sonner";
 
 type UseUpdateProfileActionProps = {
   user: FindUserResult;

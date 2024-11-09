@@ -1,14 +1,14 @@
-import { pathToRegexp } from "path-to-regexp";
+import { pathToRegexp } from 'path-to-regexp';
 
 export const ONLY_LETTERS_NUMBERS_UNDERSCORES_DASHES = /^[a-zA-Z0-9_-]+$/;
 
 export function createRoutePattern(routes: string[]): string {
   const pattern = routes
     .map((route) => {
-      const formattedRoute = route.startsWith("/") ? route.slice(1) : route;
+      const formattedRoute = route.startsWith('/') ? route.slice(1) : route;
       return `${formattedRoute}|`;
     })
-    .join("");
+    .join('');
 
   return `/(${pattern.slice(0, -1)})`;
 }
@@ -20,5 +20,5 @@ export const matchUrl = ({
   pathname: string;
   pattern: string;
 }) => {
-  return pathToRegexp(pattern).test(pathname);
+  return pathToRegexp(pattern).regexp.test(pathname);
 };

@@ -1,14 +1,15 @@
-"use client";
+'use client';
 
-import { ChevronDown, Dot, LucideIcon } from "lucide-react";
-import Link from "next/link";
-import { useState } from "react";
-import { Button } from "@components/ui/button";
+import { ChevronDown, Dot, type LucideIcon } from 'lucide-react';
+import Link from 'next/link';
+import { useState } from 'react';
+import { DropdownMenuArrow } from '@radix-ui/react-dropdown-menu';
+import { Button } from '@components/ui/button';
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@components/ui/collapsible";
+} from '@components/ui/collapsible';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,15 +17,15 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@components/ui/dropdown-menu";
+} from '@components/ui/dropdown-menu';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@components/ui/tooltip";
-import { cn } from "@/lib/utils";
-import { DropdownMenuArrow } from "@radix-ui/react-dropdown-menu";
+} from '@components/ui/tooltip';
+import { cn } from '@/lib/utils';
+import { EachElement } from '../ui/each-element';
 
 type Submenu = {
   href: string;
@@ -61,7 +62,7 @@ export const CollapseMenuButton = ({
         asChild
       >
         <Button
-          variant={active ? "secondary" : "ghost"}
+          variant={active ? 'secondary' : 'ghost'}
           className="h-10 w-full justify-start"
         >
           <div className="flex w-full items-center justify-between">
@@ -69,25 +70,11 @@ export const CollapseMenuButton = ({
               <span className="mr-4">
                 <Icon size={18} />
               </span>
-              <p
-                className={cn(
-                  "max-w-[150px] truncate",
-                  isOpen
-                    ? "translate-x-0 opacity-100"
-                    : "-translate-x-96 opacity-0",
-                )}
-              >
+              <p className="max-w-[150px] truncate translate-x-0 opacity-100">
                 {label}
               </p>
             </div>
-            <div
-              className={cn(
-                "whitespace-nowrap",
-                isOpen
-                  ? "translate-x-0 opacity-100"
-                  : "-translate-x-96 opacity-0",
-              )}
-            >
+            <div className="whitespace-nowrap translate-x-0 opacity-100">
               <ChevronDown
                 size={18}
                 className="transition-transform duration-200"
@@ -97,30 +84,29 @@ export const CollapseMenuButton = ({
         </Button>
       </CollapsibleTrigger>
       <CollapsibleContent className="data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down overflow-hidden">
-        {submenus.map(({ href, label, active }, index) => (
-          <Button
-            key={index}
-            variant={active ? "secondary" : "ghost"}
-            className="mb-1 h-10 w-full justify-start"
-            asChild
-          >
-            <Link href={href}>
-              <span className="ml-2 mr-4">
-                <Dot size={18} />
-              </span>
-              <p
-                className={cn(
-                  "max-w-[170px] truncate",
-                  isOpen
-                    ? "translate-x-0 opacity-100"
-                    : "-translate-x-96 opacity-0",
-                )}
-              >
-                {label}
-              </p>
-            </Link>
-          </Button>
-        ))}
+        <EachElement
+          of={submenus}
+          render={(
+            { href, label: submenuLabel, active: submenuActive },
+            index,
+          ) => (
+            <Button
+              key={index}
+              variant={submenuActive ? 'secondary' : 'ghost'}
+              className="mb-1 h-10 w-full justify-start"
+              asChild
+            >
+              <Link href={href}>
+                <span className="ml-2 mr-4">
+                  <Dot size={18} />
+                </span>
+                <p className="max-w-[170px] truncate translate-x-0 opacity-100">
+                  {submenuLabel}
+                </p>
+              </Link>
+            </Button>
+          )}
+        />
       </CollapsibleContent>
     </Collapsible>
   ) : (
@@ -130,18 +116,18 @@ export const CollapseMenuButton = ({
           <TooltipTrigger asChild>
             <DropdownMenuTrigger asChild>
               <Button
-                variant={active ? "secondary" : "ghost"}
+                variant={active ? 'secondary' : 'ghost'}
                 className="mb-1 h-10 w-full justify-start"
               >
                 <div className="flex w-full items-center justify-between">
                   <div className="flex items-center">
-                    <span className={cn(isOpen === false ? "" : "mr-4")}>
+                    <span className={cn(isOpen === false ? '' : 'mr-4')}>
                       <Icon size={18} />
                     </span>
                     <p
                       className={cn(
-                        "max-w-[200px] truncate",
-                        isOpen === false ? "opacity-0" : "opacity-100",
+                        'max-w-[200px] truncate',
+                        isOpen === false ? 'opacity-0' : 'opacity-100',
                       )}
                     >
                       {label}
@@ -161,13 +147,16 @@ export const CollapseMenuButton = ({
           {label}
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        {submenus.map(({ href, label }, index) => (
-          <DropdownMenuItem key={index} asChild>
-            <Link className="cursor-pointer" href={href}>
-              <p className="max-w-[180px] truncate">{label}</p>
-            </Link>
-          </DropdownMenuItem>
-        ))}
+        <EachElement
+          of={submenus}
+          render={({ href, label: submenuLabel }, index) => (
+            <DropdownMenuItem key={index} asChild>
+              <Link className="cursor-pointer" href={href}>
+                <p className="max-w-[180px] truncate">{submenuLabel}</p>
+              </Link>
+            </DropdownMenuItem>
+          )}
+        />
         <DropdownMenuArrow className="fill-border" />
       </DropdownMenuContent>
     </DropdownMenu>

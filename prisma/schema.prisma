@@ -35,7 +35,7 @@ model Session {
 }
 
 model Patient {
-  id               String           @id
+  id               String           @id @default(uuid())
   name             String
   lastName         String           @map("last_name")
   age              Int
@@ -51,7 +51,7 @@ model Patient {
 }
 
 model MedicalHistory {
-  id          String    @id
+  id          String    @id @default(uuid())
   description String
   patienId    String    @map("patient_id")
   createdAt   DateTime? @default(now()) @map("created_at")

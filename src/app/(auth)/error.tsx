@@ -1,19 +1,22 @@
-"use client"; // Error components must be Client Components
+// Error components must be Client Components
+"use client";
 
-import { ErrorContent } from "@/components/error-content";
 import { useEffect } from "react";
+import { ErrorBoundaryContent } from "@/components/error-content";
 
-export default function Error({
+const Error = ({
   error,
   reset,
 }: {
   error: Error & { digest?: string };
   reset: () => void;
-}) {
+}) => {
   useEffect(() => {
     // Log the error to an error reporting service
     console.error(error);
   }, [error]);
 
-  return <ErrorContent reset={reset} />;
-}
+  return <ErrorBoundaryContent onReset={reset} />;
+};
+
+export default Error;

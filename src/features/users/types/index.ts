@@ -1,6 +1,6 @@
-import { z } from "zod";
-import { updateDoctorSchema } from "../schemas";
-import { Prisma } from "@prisma/client";
+import { type z } from "zod";
+import { type Prisma } from "@prisma/client";
+import { type updateDoctorSchema } from "../schemas";
 
 export type UpdateDoctorSchema = z.infer<typeof updateDoctorSchema>;
 

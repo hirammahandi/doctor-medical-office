@@ -1,7 +1,7 @@
 "use client"; // Error components must be Client Components
 
-import { ErrorContent } from "@/components/error-content";
 import { useEffect } from "react";
+import { ErrorBoundaryContent } from "@/components/error-content";
 
 export default function Error({
   error,
@@ -15,5 +15,5 @@ export default function Error({
     console.error(error);
   }, [error]);
 
-  return <ErrorContent reset={reset} />;
+  return <ErrorBoundaryContent onReset={reset} />;
 }

@@ -1,8 +1,8 @@
-import { loginSchema, LoginSchema } from "@/features/authentication";
-import { login } from "@/features/authentication/actions";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { type SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { login } from "@/features/authentication/actions";
+import { loginSchema, type LoginSchema } from "@/features/authentication";
 
 export const useLoginAction = () => {
   const form = useForm<LoginSchema>({

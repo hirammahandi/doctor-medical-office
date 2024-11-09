@@ -1,15 +1,16 @@
-import { logout } from "@/features/authentication/actions";
-import { cn } from "@/lib/utils";
-import { LogOut } from "lucide-react";
-import { FC } from "react";
-import { Button } from "@components/ui/button";
+import { LogOut } from 'lucide-react';
+import { type FC } from 'react';
+// eslint-disable-next-line import/named -- This is intentional
+import { useFormStatus } from 'react-dom';
+import { logout } from '@/features/authentication/actions';
+import { cn } from '@/lib/utils';
+import { Button } from '@components/ui/button';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@components/ui/tooltip";
-import { useFormStatus } from "react-dom";
+} from '@components/ui/tooltip';
 
 type SignOutSubmitButtonProps = {
   isOpen?: boolean;
@@ -28,14 +29,14 @@ function Submit({ isOpen }: { isOpen?: boolean }) {
             isLoading={status.pending}
           >
             {!status.pending && (
-              <span className={cn(isOpen === false ? "" : "mr-4")}>
+              <span className={cn(isOpen === false ? '' : 'mr-4')}>
                 <LogOut size={18} />
               </span>
             )}
             <p
               className={cn(
-                "whitespace-nowrap",
-                isOpen === false ? "hidden opacity-0" : "opacity-100",
+                'whitespace-nowrap',
+                isOpen === false ? 'hidden opacity-0' : 'opacity-100',
               )}
             >
               Sign out

@@ -1,17 +1,17 @@
-import { createRoutePattern } from "./regex";
+import { createRoutePattern } from './regex';
 
 export const ClientRoutes = {
-  HOME: "/",
-  DASHBOARD: "/dashboard",
-  LOGIN: "/login",
-  REGISTER: "/register",
-  FORGOT_PASSWORD: "/forgot-password",
-  DOCTOR: "/dashboard/doctor",
-  PATIENTS: "/dashboard/patients",
-  CLINICAL_HISTORIES: "/dashboard/clinical-histories",
+  HOME: '/',
+  DASHBOARD: '/dashboard',
+  LOGIN: '/login',
+  REGISTER: '/register',
+  FORGOT_PASSWORD: '/forgot-password',
+  DOCTOR: '/dashboard/doctor',
+  PATIENTS: '/dashboard/patients',
+  CLINICAL_HISTORIES: '/dashboard/clinical-histories',
 } as const;
 
-export type ClientRoutes = (typeof ClientRoutes)[keyof typeof ClientRoutes];
+export type ClientRoute = (typeof ClientRoutes)[keyof typeof ClientRoutes];
 
 export const protectedRoutesPattern = createRoutePattern([
   ClientRoutes.DASHBOARD,

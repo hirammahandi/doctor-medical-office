@@ -11,6 +11,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 3.9%;
     --primary: 214 97% 59%;
+    /* hsl(0 0% 98%) */
     --primary-foreground: 0 0% 98%;
     /* hsl(163.28 88.49% 31%) */
     --secondary: 163.28 88.49% 31%;
@@ -34,6 +35,14 @@
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
   .dark {
@@ -61,6 +70,14 @@
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
 
@@ -74,6 +91,13 @@
   }
 }
 
+/*
+body {
+                  color-track color-thumb
+  scrollbar-color: blue green;
+  scrollbar-width: 1rem;
+} */
+
 p {
   text-wrap: balance;
 }
@@ -83,4 +107,16 @@ input:-webkit-autofill:focus {
   transition:
     background-color 600000s 0s,
     color 600000s 0s;
+}
+
+.shadow-animation {
+  animation-timeline: scroll();
+  animation-name: shadowProgress;
+  box-shadow: none;
+}
+
+@keyframes shadowProgress {
+  to {
+    box-shadow: 0 4px 4px 0.2rem hsl(var(--primary-foreground));
+  }
 }
