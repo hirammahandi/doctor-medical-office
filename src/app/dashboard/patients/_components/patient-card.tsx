@@ -36,7 +36,7 @@ export const PatientCard: FC<PatientCardProps> = ({ patient }) => {
   const fullName = `${name} ${lastName}`;
 
   return (
-    <Card className="transition-all hover:bg-muted">
+    <Card className="transition-all hover:bg-muted h-[258px]">
       <CardHeader>
         <CardTitle className="flex items-center justify-between">
           <span className="truncate">{fullName}</span>

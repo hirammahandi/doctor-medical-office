@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import { ErrorBoundaryContent } from '@/components/error-content';
 
 export default function GlobalError({
   error,
@@ -13,14 +14,10 @@ export default function GlobalError({
     console.error(error);
   }, [error]);
 
-  // TODO: Use the same layout styles
   return (
     <html lang="en">
       <body>
-        <h2>Something went wrong! Globa-Error</h2>
-        <button onClick={() => reset()} type="button">
-          Try again
-        </button>
+        <ErrorBoundaryContent onReset={reset} />;
       </body>
     </html>
   );

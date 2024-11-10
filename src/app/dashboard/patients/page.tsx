@@ -1,9 +1,10 @@
 import { Suspense } from 'react';
 import { Loader } from '@/components/ui/loader';
+import { type PatientsQueryParamSchema } from '@/features/patients';
 import { PatientsContainer } from './_components/patients-container';
 import { PatientsHeader } from './_components/patients-header';
 
-type SearchParams = Promise<{ search?: string }>;
+type SearchParams = Promise<PatientsQueryParamSchema>;
 
 const PatientsPage = async ({
   searchParams,
@@ -11,19 +12,19 @@ const PatientsPage = async ({
   searchParams: SearchParams;
 }) => {
   // @note to get the params and searchParams must be use async await. Refer https://nextjs.org/docs/messages/sync-dynamic-apis
-  const { search } = await searchParams;
+  const patientQueryParams = await searchParams;
 
   return (
     <>
-      <PatientsHeader key={search} />
+      <PatientsHeader key={patientQueryParams.search} />
       <div className="mx-auto w-full">
         <Suspense
-          key={search}
+          key={`${patientQueryParams.search}-${patientQueryParams.page}`}
           fallback={
             <Loader className="grid place-content-center min-h-[70dvh]" />
           }
         >
-          <PatientsContainer search={search} />
+          <PatientsContainer patientQueryParams={patientQueryParams} />
         </Suspense>
       </div>
     </>

@@ -1,3 +1,5 @@
+'use client';
+
 import { Trash2Icon } from 'lucide-react';
 import { type FC } from 'react';
 import { DialogClose } from '@radix-ui/react-dialog';
