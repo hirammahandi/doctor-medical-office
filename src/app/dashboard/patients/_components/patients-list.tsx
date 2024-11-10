@@ -19,7 +19,7 @@ export const PatientsList: FC<PatientsTableProps> = ({
   return (
     <div className="grid grid-rows-[auto_1fr_auto] gap-4 h-[900px]">
       {children}
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-3 grid-cols-1">
         {patientsList.map((patient) => (
           <PatientCard patient={patient} key={patient.id} />
         ))}
