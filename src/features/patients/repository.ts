@@ -30,6 +30,15 @@ export const findPatientsByDoctorId = async (
         mode: 'insensitive',
       },
     },
+    include: {
+      medicalHistories: {
+        select: {
+          id: true,
+          description: true,
+          createdAt: true,
+        },
+      },
+    },
     skip: queries.skip,
     take: queries.take,
     orderBy: {

@@ -2,6 +2,7 @@ const globalContentData = {
   cancel: 'Cancel',
   create: 'Create',
   update: 'Update',
+  save: 'Save',
   labels: {
     firstName: 'First Name',
     lastName: 'Last Name',
@@ -9,6 +10,7 @@ const globalContentData = {
     address: 'Address',
     age: 'Age',
     identification: 'Identification',
+    description: 'Description',
   },
   placeholders: {
     firstName: 'John',
@@ -18,6 +20,7 @@ const globalContentData = {
     address: '123 Main St, Anytown USA',
     age: '18',
     identification: '123456789',
+    description: 'Enter a description',
   },
 };
 

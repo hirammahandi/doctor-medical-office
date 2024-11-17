@@ -1,5 +1,5 @@
-import { z } from "zod";
-import { FormErrorsMessages } from "@/utils/constants";
+import { z } from 'zod';
+import { FormErrorsMessages } from '@/utils/constants';
 
 export const requiredString = z
   .string({
@@ -13,6 +13,7 @@ export const requiredUuid = z
     required_error: FormErrorsMessages.REQUIRED,
   })
   .trim()
+  .min(1, FormErrorsMessages.REQUIRED)
   .uuid(FormErrorsMessages.INVALID_UUID);
 
 export const requiredNumber = z.coerce.number({

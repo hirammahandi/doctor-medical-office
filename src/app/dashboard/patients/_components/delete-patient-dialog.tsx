@@ -13,6 +13,12 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 import { useDeletePatientActions } from '../_hooks/use-delete-patient-action';
 
 type DeletePatientDialogProps = {
@@ -31,11 +37,20 @@ export const DeletePatientDialog: FC<DeletePatientDialogProps> = ({
 
   return (
     <Dialog open={openDialog} onOpenChange={handleOpenDialog}>
-      <DialogTrigger asChild>
-        <Button variant="destructive" size="icon">
-          <Trash2Icon className="size-4" />
-        </Button>
-      </DialogTrigger>
+      <TooltipProvider>
+        <Tooltip delayDuration={50}>
+          <TooltipTrigger asChild>
+            <DialogTrigger asChild>
+              <Button variant="destructive" size="icon">
+                <Trash2Icon className="size-4" />
+              </Button>
+            </DialogTrigger>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>Delete</p>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>

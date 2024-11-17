@@ -1,4 +1,4 @@
-import { type Patient } from '@prisma/client';
+import { TooltipProvider } from '@radix-ui/react-tooltip';
 import { format } from 'date-fns';
 import { PencilIcon } from 'lucide-react';
 import { type FC } from 'react';
@@ -13,11 +13,18 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
+import { type GetPatientsPaginatedResult } from '@/features/patients';
 import { DeletePatientDialog } from './delete-patient-dialog';
+import { UpsertMedicalHistoryForm } from './upsert-medical-history-form';
 import { UpsertPatientModalForm } from './upsert-patient-modal-form';
 
 type PatientCardProps = {
-  patient: Patient;
+  patient: GetPatientsPaginatedResult['patients'][number];
 };
 
 export const PatientCard: FC<PatientCardProps> = ({ patient }) => {
@@ -30,6 +37,7 @@ export const PatientCard: FC<PatientCardProps> = ({ patient }) => {
     lastName,
     updatedAt,
     createdAt,
+    medicalHistories,
   } = patient;
 
   const date = updatedAt ?? createdAt;
@@ -66,12 +74,27 @@ export const PatientCard: FC<PatientCardProps> = ({ patient }) => {
         </div>
       </CardContent>
       <CardFooter className="flex items-center justify-end gap-2">
+        <UpsertMedicalHistoryForm
+          patientId={id}
+          medicalHistories={medicalHistories}
+        />
         <UpsertPatientModalForm
           patient={patient}
           buttonTrigger={
-            <Button variant="secondary" size="icon">
-              <PencilIcon className="size-4" />
-            </Button>
+            <span>
+              <TooltipProvider>
+                <Tooltip delayDuration={50}>
+                  <TooltipTrigger asChild>
+                    <Button size="icon">
+                      <PencilIcon className="size-4" />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Edit</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </span>
           }
         />
         <DeletePatientDialog patientId={id} patientName={fullName} />
