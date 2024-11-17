@@ -53,10 +53,10 @@ model Patient {
 model MedicalHistory {
   id          String    @id @default(uuid())
   description String
-  patienId    String    @map("patient_id")
+  patientId   String    @map("patient_id")
   createdAt   DateTime? @default(now()) @map("created_at")
   updatedAt   DateTime? @updatedAt @map("updated_at")
-  patient     Patient   @relation(fields: [patienId], references: [id], onDelete: Cascade)
+  patient     Patient   @relation(fields: [patientId], references: [id], onDelete: Cascade)
 
   @@map("medical_histories")
 }

@@ -174,9 +174,7 @@ export const UpsertPatientModalForm: FC<UpsertPatientModalFormProps> = ({
                 </Button>
               </DialogClose>
               <Button isLoading={isLoading} type="submit">
-                {patient?.id
-                  ? contentData.globalContentData.update
-                  : contentData.globalContentData.create}
+                {contentData.globalContentData.save}
               </Button>
             </DialogFooter>
           </form>
