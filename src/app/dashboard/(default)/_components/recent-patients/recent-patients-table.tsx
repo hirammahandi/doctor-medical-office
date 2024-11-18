@@ -51,7 +51,11 @@ export const RecentPatientsTable: FC<RecentPatientProps> = ({
                 {recentPatients.map((patient) => (
                   <TableRow key={patient.id}>
                     <TableCell>
-                      {patient.name} {patient.lastName}
+                      <Button asChild variant="link">
+                        <Link href={`${ClientRoutes.PATIENTS}/${patient.id}`}>
+                          {patient.name} {patient.lastName}
+                        </Link>
+                      </Button>
                     </TableCell>
                     <TableCell align="right">{patient.age}</TableCell>
                     <TableCell align="right">
