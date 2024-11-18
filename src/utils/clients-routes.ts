@@ -25,3 +25,19 @@ export const authenticationRoutesPattern = createRoutePattern([
   ClientRoutes.REGISTER,
   ClientRoutes.FORGOT_PASSWORD,
 ]);
+
+export const ClientSearchParams = {
+  CREATE: {
+    param: 'create',
+    values: {
+      true: 'true',
+      false: 'false',
+    },
+  },
+  SEARCH: {
+    param: 'search',
+  },
+  PAGE: {
+    param: 'page',
+  },
+};

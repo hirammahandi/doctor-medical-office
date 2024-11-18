@@ -1,7 +1,15 @@
-import { type PropsWithChildren } from "react";
-import { Navbar } from "@components/navbar";
+import { type PropsWithChildren } from 'react';
+import { Navbar } from '@components/navbar';
 
 type ContentLayoutProps = PropsWithChildren;
+
+/**
+ * A layout component that wraps pages with a navbar and a
+ * container div that restricts the width of the page's content.
+ *
+ * @param children - The content of the page.
+ * @returns A JSX element representing the layout.
+ */
 
 export const ContentLayout = ({ children }: ContentLayoutProps) => {
   return (

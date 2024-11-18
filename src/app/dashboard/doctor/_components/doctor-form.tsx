@@ -25,6 +25,7 @@ import { useUpdateDoctorAction } from '../_hooks/use-update-doctor-action';
 type DoctorFormProps = {
   user: FindUserResult;
 };
+
 export const DoctorForm: FC<DoctorFormProps> = ({ user }) => {
   const {
     states: { form, isLoading },

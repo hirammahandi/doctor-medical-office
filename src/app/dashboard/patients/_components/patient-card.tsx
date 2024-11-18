@@ -1,7 +1,7 @@
 import { TooltipProvider } from '@radix-ui/react-tooltip';
 import { format } from 'date-fns';
 import { PencilIcon } from 'lucide-react';
-import { type FC } from 'react';
+import { Suspense, type FC } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
@@ -18,13 +18,13 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { type GetPatientsPaginatedResult } from '@/features/patients';
+import { type GetPaginatedPatientsResult } from '@/features/patients';
 import { DeletePatientDialog } from './delete-patient-dialog';
 import { UpsertMedicalHistoryForm } from './upsert-medical-history-form';
 import { UpsertPatientModalForm } from './upsert-patient-modal-form';
 
 type PatientCardProps = {
-  patient: GetPatientsPaginatedResult['patients'][number];
+  patient: GetPaginatedPatientsResult['patients'][number];
 };
 
 export const PatientCard: FC<PatientCardProps> = ({ patient }) => {
@@ -78,25 +78,27 @@ export const PatientCard: FC<PatientCardProps> = ({ patient }) => {
           patientId={id}
           medicalHistories={medicalHistories}
         />
-        <UpsertPatientModalForm
-          patient={patient}
-          buttonTrigger={
-            <span>
-              <TooltipProvider>
-                <Tooltip delayDuration={50}>
-                  <TooltipTrigger asChild>
-                    <Button size="icon">
-                      <PencilIcon className="size-4" />
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Edit</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            </span>
-          }
-        />
+        <Suspense>
+          <UpsertPatientModalForm
+            patient={patient}
+            buttonTrigger={
+              <span>
+                <TooltipProvider>
+                  <Tooltip delayDuration={50}>
+                    <TooltipTrigger asChild>
+                      <Button size="icon">
+                        <PencilIcon className="size-4" />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Edit</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </span>
+            }
+          />
+        </Suspense>
         <DeletePatientDialog patientId={id} patientName={fullName} />
       </CardFooter>
     </Card>

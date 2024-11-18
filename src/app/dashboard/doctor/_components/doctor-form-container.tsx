@@ -1,26 +1,20 @@
-import { notFound, redirect } from 'next/navigation';
-import { validateRequestSession } from '@/auth';
-import { findUserByEmail } from '@/features/users';
-import { ClientRoutes } from '@/utils/clients-routes';
+import { notFound } from 'next/navigation';
+import {
+  type FindUserResult,
+  getDoctorInformation,
+  isDoctorModel,
+} from '@/features/users';
+import { hasErrors } from '@/utils/tools';
 import { DoctorForm } from './doctor-form';
 
 export const DoctorFormContainer = async () => {
-  const { user, session } = await validateRequestSession();
+  const foundDoctor = await getDoctorInformation();
 
-  if (!session) redirect(ClientRoutes.LOGIN);
+  if (hasErrors(foundDoctor)) throw new Error(foundDoctor.error);
 
-  const email = user.email;
+  if (!isDoctorModel<FindUserResult>(foundDoctor)) {
+    notFound();
+  }
 
-  const findUser = await findUserByEmail(email, {
-    select: {
-      name: true,
-      email: true,
-      lastName: true,
-      username: true,
-    },
-  });
-
-  if (!findUser) notFound();
-
-  return <DoctorForm user={findUser} />;
+  return <DoctorForm user={foundDoctor} />;
 };

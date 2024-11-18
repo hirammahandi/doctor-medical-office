@@ -7,3 +7,12 @@ export const hasDifferentValues = <TObject extends Record<string, unknown>>(
   );
 
 export const range = (length: number) => [...Array(length).keys()];
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- This is intentional
+export const hasErrors = (result: any): result is { error: string } => {
+  return typeof result === 'object' && 'error' in result;
+};
+
+export const removeSearchParams = (pathname: string) => {
+  window.history.replaceState(null, '', pathname);
+};

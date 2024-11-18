@@ -3,10 +3,11 @@ import { type Patient } from '@prisma/client';
 import { useState } from 'react';
 import { type SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
+import { contentData } from '@/lib/content-data';
 import { type UpsertPatientSchema } from '@/features/patients/types';
 import { upsertPatientSchema } from '@/features/patients/schemas';
 import { addNewPatient, updateExistPatient } from '@/features/patients';
-import { contentData } from '@/lib/content-data';
+import { useRemoveSearchParams } from '@/hooks';
 
 const defaultValues: UpsertPatientSchema = {
   name: '',
@@ -19,13 +20,17 @@ const defaultValues: UpsertPatientSchema = {
 type UseUpsertPatientActionParams =
   | {
       patient?: Patient;
+      openOnCreateParam?: boolean;
     }
   | undefined;
 
 export const useUpsertPatientAction = (
   params?: UseUpsertPatientActionParams,
 ) => {
-  const [openDialog, setOpenDialog] = useState(false);
+  const [openDialog, setOpenDialog] = useState(
+    params?.openOnCreateParam ?? false,
+  );
+  const { handleRemoveSearchParams } = useRemoveSearchParams();
   const form = useForm<UpsertPatientSchema>({
     resolver: zodResolver(upsertPatientSchema),
     defaultValues: params?.patient ?? defaultValues,
@@ -36,6 +41,8 @@ export const useUpsertPatientAction = (
 
   const handleOpenDialog = (open: boolean) => {
     if (isLoading) return;
+    if (!open && params?.openOnCreateParam) handleRemoveSearchParams();
+
     setOpenDialog(open);
   };
 

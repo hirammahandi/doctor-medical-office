@@ -7,7 +7,7 @@ import {
 
 export type UpsertPatientSchema = z.infer<typeof upsertPatientSchema>;
 
-export type GetPatientsPaginatedResult = {
+export type GetPaginatedPatientsResult = {
   patients: Prisma.PatientGetPayload<{
     include: {
       medicalHistories: {
@@ -23,5 +23,16 @@ export type GetPatientsPaginatedResult = {
   totalPages: number;
   total: number;
 };
+export type GetRecentPatientsResult = Prisma.PatientGetPayload<{
+  select: {
+    id: true;
+    address: true;
+    age: true;
+    createdAt: true;
+    identification: true;
+    lastName: true;
+    name: true;
+  };
+}>;
 
 export type PatientsQueryParamSchema = z.infer<typeof patientsQueryParamSchema>;

@@ -1,14 +1,18 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { type SubmitHandler, useForm } from "react-hook-form";
-import { toast } from "sonner";
-import { updateDoctor } from "@/features/users/actions";
-import { updateDoctorSchema } from "@/features/users/schemas";
-import { type FindUserResult, type UpdateDoctorSchema } from "@/features/users/types";
-import { hasDifferentValues } from "@/utils/tools";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { type SubmitHandler, useForm } from 'react-hook-form';
+import { toast } from 'sonner';
+import { updateDoctor } from '@/features/users/actions';
+import { updateDoctorSchema } from '@/features/users/schemas';
+import {
+  type FindUserResult,
+  type UpdateDoctorSchema,
+} from '@/features/users/types';
+import { hasDifferentValues } from '@/utils/tools';
 
 type UseUpdateProfileActionProps = {
   user: FindUserResult;
 };
+
 export const useUpdateDoctorAction = ({
   user,
 }: UseUpdateProfileActionProps) => {
@@ -21,7 +25,7 @@ export const useUpdateDoctorAction = ({
     formData,
   ) => {
     if (!hasDifferentValues(user, formData)) {
-      toast.warning("Please, update your personal information");
+      toast.warning('Please, update your personal information');
       return;
     }
 
@@ -30,7 +34,7 @@ export const useUpdateDoctorAction = ({
     if (response?.error) {
       toast.error(response.error);
     } else {
-      toast.success("Personal information updated");
+      toast.success('Personal information updated');
     }
   };
 

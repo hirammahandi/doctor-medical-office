@@ -16,6 +16,7 @@ export const upsertPatientSchema = z.object({
 export const deletePatientSchema = requiredUuid;
 
 export const patientsQueryParamSchema = z.object({
+  create: z.string().default('true').optional(),
   search: z.string().optional(),
   page: z.number({ coerce: true }).positive().optional(),
 });
