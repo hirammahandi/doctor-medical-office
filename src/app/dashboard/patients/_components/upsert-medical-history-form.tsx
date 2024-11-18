@@ -44,12 +44,12 @@ import {
   upsertPatientMedicalHistory,
   type UpsertMedicalHistorySchema,
 } from '@/features/clinical-histories';
-import { type GetPatientsPaginatedResult } from '@/features/patients';
+import { type GetPaginatedPatientsResult } from '@/features/patients';
 import { contentData } from '@/lib/content-data';
 
 type UpsertMedicalHistoryFormProps = {
   patientId: Patient['id'];
-  medicalHistories?: GetPatientsPaginatedResult['patients'][number]['medicalHistories'];
+  medicalHistories?: GetPaginatedPatientsResult['patients'][number]['medicalHistories'];
 };
 export const UpsertMedicalHistoryForm: FC<UpsertMedicalHistoryFormProps> = ({
   patientId,

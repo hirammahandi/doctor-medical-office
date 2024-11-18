@@ -27,21 +27,25 @@ import { useUpsertPatientAction } from '../_hooks/use-upsert-patient-action';
 
 type UpsertPatientModalFormProps = {
   patient?: Patient;
-  buttonTrigger: ReactNode;
+  buttonTrigger?: ReactNode;
+  openOnCreateParam?: boolean;
 };
 
 export const UpsertPatientModalForm: FC<UpsertPatientModalFormProps> = ({
   patient,
   buttonTrigger,
+  openOnCreateParam,
 }) => {
   const {
     states: { form, isLoading, openDialog },
     actions: { handleCreatePatient, handleOpenDialog },
-  } = useUpsertPatientAction({ patient });
+  } = useUpsertPatientAction({ patient, openOnCreateParam });
 
   return (
     <Dialog open={openDialog} onOpenChange={handleOpenDialog}>
-      <DialogTrigger asChild>{buttonTrigger}</DialogTrigger>
+      {!!buttonTrigger && (
+        <DialogTrigger asChild>{buttonTrigger}</DialogTrigger>
+      )}
       <DialogContent className="w-11/12 max-w-3xl md:w-full">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold">

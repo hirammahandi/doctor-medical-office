@@ -1,9 +1,6 @@
-import { TooltipProvider } from '@radix-ui/react-tooltip';
 import { format } from 'date-fns';
-import { PencilIcon } from 'lucide-react';
-import { type FC } from 'react';
+import { Suspense, type FC } from 'react';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -13,18 +10,15 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
-import { type GetPatientsPaginatedResult } from '@/features/patients';
+import { type GetPaginatedPatientsResult } from '@/features/patients';
 import { DeletePatientDialog } from './delete-patient-dialog';
 import { UpsertMedicalHistoryForm } from './upsert-medical-history-form';
+import { UpsertPatientButton } from './upsert-patient-button';
 import { UpsertPatientModalForm } from './upsert-patient-modal-form';
+import { ViewPatientDetailsButton } from './view-patient-details-button';
 
 type PatientCardProps = {
-  patient: GetPatientsPaginatedResult['patients'][number];
+  patient: GetPaginatedPatientsResult['patients'][number];
 };
 
 export const PatientCard: FC<PatientCardProps> = ({ patient }) => {
@@ -78,25 +72,13 @@ export const PatientCard: FC<PatientCardProps> = ({ patient }) => {
           patientId={id}
           medicalHistories={medicalHistories}
         />
-        <UpsertPatientModalForm
-          patient={patient}
-          buttonTrigger={
-            <span>
-              <TooltipProvider>
-                <Tooltip delayDuration={50}>
-                  <TooltipTrigger asChild>
-                    <Button size="icon">
-                      <PencilIcon className="size-4" />
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Edit</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            </span>
-          }
-        />
+        <ViewPatientDetailsButton id={id} />
+        <Suspense>
+          <UpsertPatientModalForm
+            patient={patient}
+            buttonTrigger={<UpsertPatientButton />}
+          />
+        </Suspense>
         <DeletePatientDialog patientId={id} patientName={fullName} />
       </CardFooter>
     </Card>

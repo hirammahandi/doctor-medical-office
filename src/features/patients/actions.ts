@@ -7,12 +7,17 @@ import { validateRequestSession } from '@/auth';
 import { ClientRoutes } from '@/utils/clients-routes';
 import { ErrorsMessages } from '@/utils/constants';
 import {
+  countOfPatientsByDoctorId,
   createPatient,
   deletePatientByDoctorId,
+  findPatients,
   updatePatient,
 } from './repository';
-import { upsertPatientSchema, deletePatientSchema } from './schemas';
-import { type UpsertPatientSchema } from './types';
+import { deletePatientSchema, upsertPatientSchema } from './schemas';
+import {
+  type GetRecentPatientsResult,
+  type UpsertPatientSchema,
+} from './types';
 
 export const addNewPatient = async (
   patient: UpsertPatientSchema,
@@ -97,6 +102,65 @@ export const removePatient = async (patientId: string) => {
   } catch (error) {
     if (isRedirectError(error)) throw error;
     console.log('Error deleting a patient', error);
+
+    return {
+      error: ErrorsMessages.SOMETHING_WENT_WRONG,
+    };
+  }
+};
+
+export const getTotalPatients = async () => {
+  try {
+    const { session, user } = await validateRequestSession();
+
+    if (!session) redirect(ClientRoutes.LOGIN);
+
+    const doctorId = user.id;
+
+    const count = await countOfPatientsByDoctorId(doctorId);
+
+    return count;
+  } catch (error) {
+    if (isRedirectError(error)) throw error;
+    console.log('Error getting the patients total', error);
+
+    return {
+      error: ErrorsMessages.SOMETHING_WENT_WRONG,
+    };
+  }
+};
+
+export const getRecentPatients = async (
+  take = 5,
+): Promise<GetRecentPatientsResult[] | { error: string }> => {
+  try {
+    const { session, user } = await validateRequestSession();
+
+    if (!session) redirect(ClientRoutes.LOGIN);
+
+    const doctorId = user.id;
+
+    const recentPatients = await findPatients({
+      where: {
+        userId: doctorId,
+      },
+
+      take,
+      select: {
+        id: true,
+        address: true,
+        age: true,
+        createdAt: true,
+        identification: true,
+        lastName: true,
+        name: true,
+      },
+    });
+
+    return recentPatients;
+  } catch (error) {
+    if (isRedirectError(error)) throw error;
+    console.log('Error getting the recent patients', error);
 
     return {
       error: ErrorsMessages.SOMETHING_WENT_WRONG,

@@ -6,9 +6,9 @@ import { redirect } from 'next/navigation';
 import { validateRequestSession } from '@/auth';
 import { ClientRoutes } from '@/utils/clients-routes';
 import { ErrorsMessages } from '@/utils/constants';
-import { updateUser } from './repository';
+import { findUserByEmail, updateUser } from './repository';
 import { updateDoctorSchema } from './schemas';
-import { type UpdateDoctorSchema } from './types';
+import { type FindUserResult, type UpdateDoctorSchema } from './types';
 
 export const updateDoctor = async (
   body: UpdateDoctorSchema,
@@ -24,10 +24,42 @@ export const updateDoctor = async (
     const id = user.id;
 
     await updateUser({ id, ...parsedBody });
+
     revalidatePath(ClientRoutes.DOCTOR);
   } catch (error) {
     if (isRedirectError(error)) throw error;
     console.log('Error updating doctor', error);
+
+    return {
+      error: ErrorsMessages.SOMETHING_WENT_WRONG,
+    };
+  }
+};
+
+export const getDoctorInformation = async (): Promise<
+  { error: string } | null | FindUserResult
+> => {
+  try {
+    const { user, session } = await validateRequestSession();
+
+    if (!session) redirect(ClientRoutes.LOGIN);
+
+    const email = user.email;
+
+    const foundUser = await findUserByEmail(email, {
+      select: {
+        name: true,
+        email: true,
+        lastName: true,
+        username: true,
+      },
+    });
+
+    return foundUser;
+  } catch (error) {
+    if (isRedirectError(error)) throw error;
+
+    console.log('Error getting doctor', error);
 
     return {
       error: ErrorsMessages.SOMETHING_WENT_WRONG,

@@ -1,13 +1,17 @@
 import { type Prisma } from '@prisma/client';
 import prisma from '@/lib/prisma';
-import { type GetPatientsPaginatedResult } from './types';
+import { type GetPaginatedPatientsResult } from './types';
 import {
   PATIENTS_INITIAL_PAGE,
   PATIENTS_INITIAL_SKIP,
   PATIENTS_PER_PAGE,
 } from './constants';
 
-export const findPatientsByDoctorId = async (
+export const findPatients = (input: Prisma.PatientFindManyArgs) => {
+  return prisma.patient.findMany(input);
+};
+
+export const findPaginatedPatientsByDoctorId = async (
   doctorId: string,
   queries: {
     skip?: number;
@@ -85,13 +89,13 @@ export const findPaginatedPatients = async ({
   userId: string;
   search?: string;
   take?: number;
-}): Promise<GetPatientsPaginatedResult> => {
+}): Promise<GetPaginatedPatientsResult> => {
   const page = currentPage;
   const skip = (page - 1) * take;
 
   const [countsOfPatients, patients] = await Promise.all([
     countOfPatientsByDoctorId(userId),
-    findPatientsByDoctorId(userId, {
+    findPaginatedPatientsByDoctorId(userId, {
       skip,
       take,
       search,

@@ -1,12 +1,7 @@
-import { ContentLayout } from "@components/content-layout";
-import { NotFoundContent } from "@components/not-found-content";
+import { NotFoundContent } from '@components/not-found-content';
 
 const NotFound = () => {
-  return (
-    <ContentLayout>
-      <NotFoundContent />
-    </ContentLayout>
-  );
+  return <NotFoundContent />;
 };
 
 export default NotFound;
