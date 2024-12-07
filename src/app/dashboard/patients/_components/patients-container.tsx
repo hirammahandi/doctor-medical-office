@@ -7,7 +7,7 @@ import {
   patientsQueryParamSchema,
   type PatientsQueryParamSchema,
 } from '@/features/patients';
-import { ClientRoutes, ClientSearchParams } from '@/utils/clients-routes';
+import { ClientRoutes, ClientSearchParams } from '@/lib/clients-routes';
 import { NoResultsView } from '../../../../components/no-results-view';
 import { EmptyPatientsView } from './empty-patients-view';
 import { PatientsList } from './patients-list';

@@ -7,7 +7,7 @@ import {
   type FindUserResult,
   type UpdateDoctorSchema,
 } from '@/features/users/types';
-import { hasDifferentValues } from '@/utils/tools';
+import { hasDifferentValues } from '@/lib/tools';
 
 type UseUpdateProfileActionProps = {
   user: FindUserResult;

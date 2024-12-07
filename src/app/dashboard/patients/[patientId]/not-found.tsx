@@ -5,12 +5,11 @@ import { contentData } from '@/lib/content-data';
 const NotFound = () => {
   return (
     <NotFoundContent
-      linkHref={ClientRoutes.DASHBOARD}
-      linkText={contentData.globalContentData.goToDashboard}
-      message={contentData.globalContentData.notFound.description}
-      title={contentData.globalContentData.notFound.pageNotFound}
+      title={contentData.patientDetailsContentData.notFound.title}
+      message={contentData.patientDetailsContentData.notFound.description}
+      linkHref={ClientRoutes.PATIENTS}
+      linkText={contentData.globalContentData.goToPatients}
     />
   );
 };
-
 export default NotFound;

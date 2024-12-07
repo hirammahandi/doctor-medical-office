@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { requiredString } from '@/utils/validation';
+import { requiredString } from '@/lib/validation';
 
 export const upsertMedicalHistorySchema = z.object({
   description: requiredString,

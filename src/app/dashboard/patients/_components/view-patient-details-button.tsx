@@ -8,7 +8,7 @@ import {
   TooltipContent,
 } from '@/components/ui/tooltip';
 import { Button } from '@/components/ui/button';
-import { ClientRoutes } from '@/utils/clients-routes';
+import { ClientRoutes } from '@/lib/clients-routes';
 
 type ViewPatientDetailsButtonProps = {
   id: string;

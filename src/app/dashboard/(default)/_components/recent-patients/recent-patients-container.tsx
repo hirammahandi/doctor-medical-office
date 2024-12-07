@@ -1,5 +1,5 @@
 import { getRecentPatients } from '@/features/patients';
-import { hasErrors } from '@/utils/tools';
+import { hasErrors } from '@/lib/tools';
 import { RecentPatientsTable } from './recent-patients-table';
 
 export const RecentPatientsContainer = async () => {

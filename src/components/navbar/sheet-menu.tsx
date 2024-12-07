@@ -13,7 +13,7 @@ import {
 } from '@components/ui/sheet';
 import { VisuallyHidden } from '@components/ui/visually-hidden';
 import { Menu } from '@components/sidebar/menu';
-import { ClientRoutes } from '@/utils/clients-routes';
+import { ClientRoutes } from '@/lib/clients-routes';
 import { SignOutSubmitButton } from '@components/sidebar/signout-submit-button';
 
 export const SheetMenu = () => {

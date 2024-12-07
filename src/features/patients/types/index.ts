@@ -1,6 +1,8 @@
 import { type Prisma } from '@prisma/client';
 import { type z } from 'zod';
 import {
+  type deletePatientSchema,
+  type patientDetailsSchema,
   type patientsQueryParamSchema,
   type upsertPatientSchema,
 } from '../schemas';
@@ -23,7 +25,8 @@ export type GetPaginatedPatientsResult = {
   totalPages: number;
   total: number;
 };
-export type GetRecentPatientsResult = Prisma.PatientGetPayload<{
+
+export type GetPatientResult = Prisma.PatientGetPayload<{
   select: {
     id: true;
     address: true;
@@ -36,3 +39,5 @@ export type GetRecentPatientsResult = Prisma.PatientGetPayload<{
 }>;
 
 export type PatientsQueryParamSchema = z.infer<typeof patientsQueryParamSchema>;
+export type PatientDetailsSchema = z.infer<typeof patientDetailsSchema>;
+export type DeletePatientSchema = z.infer<typeof deletePatientSchema>;

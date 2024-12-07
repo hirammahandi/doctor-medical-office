@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
@@ -25,6 +26,9 @@ export const PatientDetailsDialog: FC<PropsWithChildren> = ({ children }) => {
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Patient Details</DialogTitle>
+          <DialogDescription>
+            Detailed information about the patient
+          </DialogDescription>
         </DialogHeader>
         {children}
       </DialogContent>

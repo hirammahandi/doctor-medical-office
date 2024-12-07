@@ -1,7 +1,7 @@
-import { z } from "zod";
-import { FormErrorsMessages } from "@/utils/constants";
-import { ONLY_LETTERS_NUMBERS_UNDERSCORES_DASHES } from "@/utils/regex";
-import { requiredString } from "@/utils/validation";
+import { z } from 'zod';
+import { FormErrorsMessages } from '@/lib/constants';
+import { ONLY_LETTERS_NUMBERS_UNDERSCORES_DASHES } from '@/lib/regex';
+import { requiredString } from '@/lib/validation';
 
 export const updateDoctorSchema = z.object({
   name: requiredString,

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { toast } from 'sonner';
-import { AbortedMessages, ErrorsMessages } from '@/utils/constants';
+import { AbortedMessages, ErrorsMessages } from '@/lib/constants';
 
 export type RequestOptions<Args = unknown> = Args & {
   signal: AbortSignal;

@@ -2,6 +2,7 @@ import { useTransition } from 'react';
 import { toast } from 'sonner';
 import { removePatient } from '@/features/patients';
 import { useOpenDialog } from '@/hooks';
+import { isResultError } from '@/lib/utils';
 
 type UseDeletePatientActionParams = {
   patientId: string;
@@ -19,7 +20,7 @@ export const useDeletePatientActions = ({
     startTransition(async () => {
       const response = await removePatient(patientId);
 
-      if (response?.error) {
+      if (isResultError(response)) {
         toast.error(response.error);
       } else {
         toast.success('Patient deleted');

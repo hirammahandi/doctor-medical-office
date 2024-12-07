@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { FormErrorsMessages } from '@/utils/constants';
+import { FormErrorsMessages } from '@/lib/constants';
 
 export const requiredString = z
   .string({

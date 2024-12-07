@@ -33,7 +33,7 @@ export class ApiResponse<TData> {
   private success: boolean;
 
   constructor(props: {
-    data: TData | Record<"error", string>;
+    data: TData | Record<'error', string>;
     status: number;
     success: boolean;
   }) {
@@ -47,7 +47,7 @@ export class ApiResponse<TData> {
       return {
         status: this.status,
         success: false,
-        error: (this.data as Record<"error", string>).error,
+        error: (this.data as Record<'error', string>).error,
       };
     }
 

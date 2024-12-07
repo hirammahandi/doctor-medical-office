@@ -21,7 +21,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { ClientRoutes } from '@/utils/clients-routes';
+import { ClientRoutes } from '@/lib/clients-routes';
 import { useLoginAction } from '../_hooks/use-login-action';
 
 export const LoginForm = () => {
