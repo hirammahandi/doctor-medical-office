@@ -17,12 +17,18 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { type GetRecentPatientsResult } from '@/features/patients';
+import { type GetPatientResult } from '@/features/patients';
 import { contentData } from '@/lib/content-data';
-import { ClientRoutes, ClientSearchParams } from '@/utils/clients-routes';
+import { ClientRoutes, ClientSearchParams } from '@/lib/clients-routes';
+import {
+  TooltipProvider,
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+} from '@/components/ui/tooltip';
 
 type RecentPatientProps = {
-  recentPatients: GetRecentPatientsResult[];
+  recentPatients: GetPatientResult[];
 };
 
 export const RecentPatientsTable: FC<RecentPatientProps> = ({
@@ -41,8 +47,8 @@ export const RecentPatientsTable: FC<RecentPatientProps> = ({
               <TableHeader>
                 <TableRow>
                   <TableHead>Patient Name</TableHead>
-                  <TableHead>Age</TableHead>
-                  <TableHead>Identification</TableHead>
+                  <TableHead className="text-end">Age</TableHead>
+                  <TableHead className="text-end">Identification</TableHead>
                   <TableHead>Address</TableHead>
                   <TableHead>Creado en</TableHead>
                 </TableRow>
@@ -51,7 +57,7 @@ export const RecentPatientsTable: FC<RecentPatientProps> = ({
                 {recentPatients.map((patient) => (
                   <TableRow key={patient.id}>
                     <TableCell>
-                      <Button asChild variant="link">
+                      <Button asChild className="h-fit p-0" variant="link">
                         <Link href={`${ClientRoutes.PATIENTS}/${patient.id}`}>
                           {patient.name} {patient.lastName}
                         </Link>
@@ -62,7 +68,27 @@ export const RecentPatientsTable: FC<RecentPatientProps> = ({
                       {patient.identification}
                     </TableCell>
                     <TableCell>{patient.address}</TableCell>
-                    <TableCell>{patient.createdAt?.toDateString()}</TableCell>
+                    <TableCell>
+                      <TooltipProvider delayDuration={50}>
+                        <Tooltip>
+                          <TooltipTrigger>
+                            {patient.createdAt?.toLocaleDateString('en-US', {
+                              day: '2-digit',
+                              month: '2-digit',
+                              year: 'numeric',
+                            })}
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            {patient.createdAt?.toLocaleDateString(undefined, {
+                              weekday: 'long',
+                              year: 'numeric',
+                              month: 'long',
+                              day: 'numeric',
+                            })}
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>

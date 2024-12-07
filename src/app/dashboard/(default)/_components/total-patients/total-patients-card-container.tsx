@@ -1,5 +1,5 @@
 import { getTotalPatients } from '@/features/patients';
-import { hasErrors } from '@/utils/tools';
+import { hasErrors } from '@/lib/tools';
 import { TotalPatientsCard } from './total-patients-card';
 
 export const TotalPatientsCardContainer = async () => {

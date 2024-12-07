@@ -2,9 +2,9 @@ import { type FC, type PropsWithChildren, type ReactNode } from 'react';
 
 const PatientsLayout: FC<
   PropsWithChildren<{
-    modal: ReactNode;
+    patientId: ReactNode;
   }>
-> = ({ modal: patientDetailsModal, children }) => {
+> = ({ patientId: patientDetailsModal, children }) => {
   return (
     <>
       {children}

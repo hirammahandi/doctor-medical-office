@@ -4,7 +4,7 @@ import {
   getDoctorInformation,
   isDoctorModel,
 } from '@/features/users';
-import { hasErrors } from '@/utils/tools';
+import { hasErrors } from '@/lib/tools';
 import { DoctorForm } from './doctor-form';
 
 export const DoctorFormContainer = async () => {

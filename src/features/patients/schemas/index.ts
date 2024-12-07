@@ -1,9 +1,5 @@
 import { z } from 'zod';
-import {
-  requiredNumber,
-  requiredString,
-  requiredUuid,
-} from '@/utils/validation';
+import { requiredNumber, requiredString, requiredUuid } from '@/lib/validation';
 
 export const upsertPatientSchema = z.object({
   name: requiredString,
@@ -19,4 +15,8 @@ export const patientsQueryParamSchema = z.object({
   create: z.string().default('true').optional(),
   search: z.string().optional(),
   page: z.number({ coerce: true }).positive().optional(),
+});
+
+export const patientDetailsSchema = z.object({
+  patientId: requiredUuid,
 });

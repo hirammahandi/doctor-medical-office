@@ -1,8 +1,8 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
-import { ClientRoutes } from '@/utils/clients-routes';
-import { PAGE_TITLES_BY_ROUTES } from '@/utils/constants';
+import { ClientRoutes } from '@/lib/clients-routes';
+import { PAGE_TITLES_BY_ROUTES } from '@/lib/constants';
 
 export const NavbarTitle = () => {
   const pathname = usePathname();

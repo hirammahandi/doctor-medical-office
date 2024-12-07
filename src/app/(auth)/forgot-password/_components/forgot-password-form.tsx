@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { ClientRoutes } from '@/utils/clients-routes';
+import { ClientRoutes } from '@/lib/clients-routes';
 
 export const ForgotPasswordForm = () => {
   return (

@@ -1,7 +1,7 @@
-import { z } from "zod";
-import { requiredString } from "@/utils/validation";
-import { FormErrorsMessages } from "@/utils/constants";
-import { ONLY_LETTERS_NUMBERS_UNDERSCORES_DASHES } from "@/utils/regex";
+import { z } from 'zod';
+import { requiredString } from '@/lib/validation';
+import { FormErrorsMessages } from '@/lib/constants';
+import { ONLY_LETTERS_NUMBERS_UNDERSCORES_DASHES } from '@/lib/regex';
 
 export const signUpSchema = z.object({
   name: requiredString,

@@ -8,7 +8,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@components/ui/tooltip';
-import { DEFAULT_PASSWORD_PLACEHOLDER } from '@/utils/constants';
+import { DEFAULT_PASSWORD_PLACEHOLDER } from '@/lib/constants';
 
 type PasswordInputProps = Omit<InputProps, 'type'>;
 

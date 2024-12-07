@@ -1,5 +1,5 @@
 import { usePathname } from 'next/navigation';
-import { removeSearchParams } from '@/utils/tools';
+import { removeSearchParams } from '@/lib/tools';
 
 export const useRemoveSearchParams = () => {
   const pathname = usePathname();

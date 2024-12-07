@@ -5,7 +5,7 @@ import {
   Stethoscope,
   Users,
 } from 'lucide-react';
-import { type ClientRoute, ClientRoutes } from '@/utils/clients-routes';
+import { type ClientRoute, ClientRoutes } from '@/lib/clients-routes';
 
 type Submenu = {
   href: string;

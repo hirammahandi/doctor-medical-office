@@ -1,7 +1,7 @@
 import { type FC, type PropsWithChildren } from 'react';
 import { CustomPagination } from '@/components/custom-pagination';
 import { type GetPaginatedPatientsResult } from '@/features/patients/types';
-import { ClientRoutes } from '@/utils/clients-routes';
+import { ClientRoutes } from '@/lib/clients-routes';
 import { PatientCard } from './patient-card';
 
 type PatientsTableProps = PropsWithChildren<{

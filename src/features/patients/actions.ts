@@ -4,29 +4,28 @@ import { revalidatePath } from 'next/cache';
 import { isRedirectError } from 'next/dist/client/components/redirect';
 import { redirect } from 'next/navigation';
 import { validateRequestSession } from '@/auth';
-import { ClientRoutes } from '@/utils/clients-routes';
-import { ErrorsMessages } from '@/utils/constants';
+import { ClientRoutes } from '@/lib/clients-routes';
+import { ErrorsMessages } from '@/lib/constants';
+import { type ActionsResult } from '@/lib/types';
 import {
   countOfPatientsByDoctorId,
   createPatient,
   deletePatientByDoctorId,
+  findPatientById,
   findPatients,
   updatePatient,
 } from './repository';
 import { deletePatientSchema, upsertPatientSchema } from './schemas';
 import {
-  type GetRecentPatientsResult,
+  type PatientDetailsSchema,
+  type DeletePatientSchema,
+  type GetPatientResult,
   type UpsertPatientSchema,
 } from './types';
 
 export const addNewPatient = async (
   patient: UpsertPatientSchema,
-): Promise<
-  | {
-      error: string;
-    }
-  | undefined
-> => {
+): ActionsResult<void> => {
   try {
     const parsedPatientData = upsertPatientSchema.parse(patient);
     const { session, user } = await validateRequestSession();
@@ -59,12 +58,7 @@ export const addNewPatient = async (
 export const updateExistPatient = async (
   patientId: string,
   patient: UpsertPatientSchema,
-): Promise<
-  | {
-      error: string;
-    }
-  | undefined
-> => {
+): ActionsResult<void> => {
   try {
     const { session } = await validateRequestSession();
 
@@ -86,7 +80,9 @@ export const updateExistPatient = async (
   }
 };
 
-export const removePatient = async (patientId: string) => {
+export const removePatient = async (
+  patientId: DeletePatientSchema,
+): ActionsResult<void> => {
   try {
     const safePatientId = deletePatientSchema.parse(patientId);
 
@@ -109,7 +105,7 @@ export const removePatient = async (patientId: string) => {
   }
 };
 
-export const getTotalPatients = async () => {
+export const getTotalPatients = async (): ActionsResult<number> => {
   try {
     const { session, user } = await validateRequestSession();
 
@@ -132,7 +128,7 @@ export const getTotalPatients = async () => {
 
 export const getRecentPatients = async (
   take = 5,
-): Promise<GetRecentPatientsResult[] | { error: string }> => {
+): ActionsResult<GetPatientResult[]> => {
   try {
     const { session, user } = await validateRequestSession();
 
@@ -161,6 +157,40 @@ export const getRecentPatients = async (
   } catch (error) {
     if (isRedirectError(error)) throw error;
     console.log('Error getting the recent patients', error);
+
+    return {
+      error: ErrorsMessages.SOMETHING_WENT_WRONG,
+    };
+  }
+};
+
+export const getPatient = async ({
+  patientId,
+}: PatientDetailsSchema): ActionsResult<GetPatientResult | null> => {
+  try {
+    const { session, user } = await validateRequestSession();
+    if (!session) redirect(ClientRoutes.LOGIN);
+    const doctorId = user.id;
+    const patient = await findPatientById({
+      where: {
+        userId: doctorId,
+        id: patientId,
+      },
+      select: {
+        id: true,
+        address: true,
+        age: true,
+        createdAt: true,
+        identification: true,
+        lastName: true,
+        name: true,
+      },
+    });
+    return patient;
+  } catch (error) {
+    if (isRedirectError(error)) throw error;
+
+    console.log('Error getting the patient', error);
 
     return {
       error: ErrorsMessages.SOMETHING_WENT_WRONG,

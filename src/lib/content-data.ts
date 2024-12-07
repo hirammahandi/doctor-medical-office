@@ -3,6 +3,14 @@ const globalContentData = {
   create: 'Create',
   update: 'Update',
   save: 'Save',
+  goToDashboard: 'Go to Dashboard',
+  goToPatients: 'Go to Patients',
+  notFound: {
+    pageNotFound: 'Oops, page not found!',
+    resourceNotFound: 'Resource not found',
+    description:
+      'The page you&apos;re looking for doesn&apos;t exist or has been moved.',
+  },
   labels: {
     firstName: 'First Name',
     lastName: 'Last Name',
@@ -38,4 +46,17 @@ const upsertPatientContentData = {
   },
 };
 
-export const contentData = { globalContentData, upsertPatientContentData };
+const patientDetailsContentData = {
+  title: 'Patient Details',
+  description: 'View the patient´s information below.',
+  notFound: {
+    title: 'Patient not found',
+    description: 'The patient you are looking for does not exist.',
+  },
+};
+
+export const contentData = {
+  globalContentData,
+  upsertPatientContentData,
+  patientDetailsContentData,
+};
