@@ -9,15 +9,19 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 
-export const PatientDetailsDialog: FC<PropsWithChildren> = ({ children }) => {
+const useClosePatientDetailsDialog = () => {
   const router = useRouter();
+
+  return (open: boolean) => {
+    if (!open) router.back();
+  };
+};
+
+export const PatientDetailsDialog: FC<PropsWithChildren> = ({ children }) => {
+  const handleClosePatientDialog = useClosePatientDetailsDialog();
+
   return (
-    <Dialog
-      defaultOpen
-      onOpenChange={(open) => {
-        if (!open) router.back();
-      }}
-    >
+    <Dialog defaultOpen onOpenChange={handleClosePatientDialog}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Patient Details</DialogTitle>
