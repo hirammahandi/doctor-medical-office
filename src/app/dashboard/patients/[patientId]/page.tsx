@@ -1,6 +1,13 @@
+import { type FC } from 'react';
 import { PatientDetailsContainer } from '../_components/patient-details-container';
 
-const PatientDetailsPage = () => {
+type PatientDetailsPageProps = {
+  params: Promise<{ patientId: string }>;
+};
+
+const PatientDetailsPage: FC<PatientDetailsPageProps> = async ({ params }) => {
+  const { patientId } = await params;
+
   return (
     <div>
       <PatientDetailsContainer />

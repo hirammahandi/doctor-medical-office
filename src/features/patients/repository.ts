@@ -121,3 +121,7 @@ export const deletePatientByDoctorId = async (
     where: { id: patientId, userId: doctorId },
   });
 };
+
+export const findPatientById = async (params: Prisma.PatientFindUniqueArgs) => {
+  return await prisma.patient.findUnique(params);
+};
