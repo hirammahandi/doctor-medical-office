@@ -51,8 +51,9 @@ const validateSession = async (): Promise<
     }
   | { user: null; session: null }
 > => {
-  const sessionId =
-    (await cookies()).get(lucia.sessionCookieName)?.value ?? null;
+  const _cookies = await cookies();
+
+  const sessionId = _cookies.get(lucia.sessionCookieName)?.value ?? null;
 
   if (!sessionId) {
     return {
@@ -65,7 +66,7 @@ const validateSession = async (): Promise<
     const result = await lucia.validateSession(sessionId);
     if (result.session?.fresh) {
       const sessionCookie = lucia.createSessionCookie(result.session.id);
-      (await cookies()).set(
+      _cookies.set(
         sessionCookie.name,
         sessionCookie.value,
         sessionCookie.attributes,
@@ -73,7 +74,7 @@ const validateSession = async (): Promise<
     }
     if (!result.session) {
       const sessionCookie = lucia.createBlankSessionCookie();
-      (await cookies()).set(
+      _cookies.set(
         sessionCookie.name,
         sessionCookie.value,
         sessionCookie.attributes,
@@ -90,8 +91,8 @@ const validateSession = async (): Promise<
 };
 
 const getAuthUser = async () => {
-  const sessionId =
-    (await cookies()).get(lucia.sessionCookieName)?.value ?? null;
+  const _cookies = await cookies();
+  const sessionId = _cookies.get(lucia.sessionCookieName)?.value ?? null;
 
   if (!sessionId) return null;
 
@@ -101,10 +102,11 @@ const getAuthUser = async () => {
 };
 
 export const createSession = async (userId: string) => {
+  const _cookies = await cookies();
   const session = await lucia.createSession(userId, {});
   const sessionCookie = lucia.createSessionCookie(session.id);
 
-  (await cookies()).set(
+  _cookies.set(
     sessionCookie.name,
     sessionCookie.value,
     sessionCookie.attributes,
@@ -112,11 +114,11 @@ export const createSession = async (userId: string) => {
 };
 
 export const removeSession = async (sessionId: string) => {
+  const _cookies = await cookies();
   await lucia.invalidateSession(sessionId);
-
   const sessionCookie = lucia.createBlankSessionCookie();
 
-  (await cookies()).set(
+  _cookies.set(
     sessionCookie.name,
     sessionCookie.value,
     sessionCookie.attributes,
