@@ -1,8 +1,8 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
-import { isRedirectError } from 'next/dist/client/components/redirect';
 import { redirect } from 'next/navigation';
+import { isRedirectError } from 'next/dist/client/components/redirect-error';
 import { validateRequestSession } from '@/auth';
 import { ClientRoutes } from '@/lib/clients-routes';
 import { ErrorsMessages } from '@/lib/constants';
@@ -35,7 +35,7 @@ export const upsertPatientMedicalHistory = async (
       ...parsedMedicalHistoryData,
       patient: {
         connect: {
-          id: parsedPatientId,
+          id: parsedPatientId || undefined,
         },
       },
     });

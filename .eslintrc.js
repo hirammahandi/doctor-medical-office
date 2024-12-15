@@ -28,6 +28,7 @@ module.exports = {
   ignorePatterns: ['.eslintrc.js'],
   rules: {
     'no-unused-vars': 'off',
+    'react/jsx-no-leaked-render': 'off',
     '@typescript-eslint/no-unused-vars': ['error'],
     'import/no-default-export': 'off',
     'react/function-component-definition': 'off',

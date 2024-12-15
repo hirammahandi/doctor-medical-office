@@ -1,4 +1,3 @@
-/* eslint-disable import/named -- This is intentional */
 // @note this must be imported only in server component or actions
 
 import { PrismaAdapter } from '@lucia-auth/adapter-prisma';

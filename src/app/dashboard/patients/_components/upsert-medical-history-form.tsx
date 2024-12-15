@@ -1,11 +1,8 @@
 'use client';
 
-import { zodResolver } from '@hookform/resolvers/zod';
 import { type Patient } from '@prisma/client';
 import { BookOpen } from 'lucide-react';
-import { type FC, useState } from 'react';
-import { type SubmitHandler, useForm } from 'react-hook-form';
-import { toast } from 'sonner';
+import { type FC } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -20,18 +17,12 @@ import {
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import {
   Tooltip,
@@ -39,53 +30,27 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import {
-  upsertMedicalHistorySchema,
-  upsertPatientMedicalHistory,
-  type UpsertMedicalHistorySchema,
-} from '@/features/clinical-histories';
 import { type GetPaginatedPatientsResult } from '@/features/patients';
 import { contentData } from '@/lib/content-data';
+import { useUpsertPatientMedicalHistoryAction } from '../_hooks/use-upsert-patient-medical-history-action';
+import { MedicalHistoriesSelect } from './medical-histories-select';
 
 type UpsertMedicalHistoryFormProps = {
   patientId: Patient['id'];
   medicalHistories?: GetPaginatedPatientsResult['patients'][number]['medicalHistories'];
 };
+
 export const UpsertMedicalHistoryForm: FC<UpsertMedicalHistoryFormProps> = ({
   patientId,
   medicalHistories,
 }) => {
-  const [openDialog, setOpenDialog] = useState(false);
+  const {
+    actions: { handleOpenDialog, handleUpsertMedicalHistory },
+    states: { form, isLoading, openDialog },
+  } = useUpsertPatientMedicalHistoryAction({ patientId });
 
-  const form = useForm<UpsertMedicalHistorySchema>({
-    defaultValues: { description: '' },
-    resolver: zodResolver(upsertMedicalHistorySchema),
-  });
-
-  const isLoading = form.formState.isSubmitting;
-  const errors = form.formState.errors;
-
-  const handleOpenDialog = (open: boolean) => {
-    if (isLoading) return;
-    setOpenDialog(open);
-  };
-
-  const handleUpsertMedicalHistory: SubmitHandler<
-    UpsertMedicalHistorySchema
-  > = async (formData) => {
-    const response = await upsertPatientMedicalHistory(patientId, formData);
-
-    if (response?.error) {
-      toast.error(response.error);
-    } else {
-      setOpenDialog(false);
-      const successMessage = "Patient's medical history updated";
-      toast.success(successMessage);
-      form.reset();
-    }
-  };
   return (
-    <Dialog>
+    <Dialog onOpenChange={handleOpenDialog} open={openDialog}>
       <TooltipProvider>
         <Tooltip delayDuration={50}>
           <TooltipTrigger asChild>
@@ -108,44 +73,27 @@ export const UpsertMedicalHistoryForm: FC<UpsertMedicalHistoryFormProps> = ({
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form
-            className="space-y-4"
-            onSubmit={form.handleSubmit(handleUpsertMedicalHistory)}
-          >
+          <form className="space-y-4" onSubmit={handleUpsertMedicalHistory}>
             {!!medicalHistories?.length && (
               <FormField
                 control={form.control}
                 name="id"
                 render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email</FormLabel>
-                    <Select
-                      onValueChange={(value) => {
-                        field.onChange(value);
-                        const description = medicalHistories.find(
-                          (history) => history.id === value,
-                        )?.description;
-
-                        if (!description) return;
-
-                        form.setValue('description', description);
-                        form.setFocus('description');
-                      }}
-                      defaultValue={field.value}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select a verified email to display" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {medicalHistories.map((history) => (
-                          <SelectItem key={history.id} value={history.id}>
-                            {history.createdAt?.toDateString()}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                  <FormItem className="flex flex-col">
+                    <FormLabel>Medical Histories Dates</FormLabel>
+                    <MedicalHistoriesSelect
+                      medicalHistories={medicalHistories}
+                      onChangeAction={field.onChange}
+                      setFocusAction={form.setFocus}
+                      setValueAction={form.setValue}
+                      value={field.value}
+                      ref={field.ref}
+                    />
+                    <FormDescription>
+                      If you want update a medical history, select one by its
+                      date, if not you can set the description and a new medical
+                      history record going to be created for this patient.
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
