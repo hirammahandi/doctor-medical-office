@@ -10,12 +10,12 @@ const nextConfig = {
       fullUrl: true,
     },
   },
-  serverExternalPackages: ["@node-rs/argon2"],
+  serverExternalPackages: ['@node-rs/argon2'],
   rewrites() {
     return [
       {
-        source: "/",
-        destination: "/dashboard",
+        source: '/',
+        destination: '/dashboard',
       },
     ];
   },

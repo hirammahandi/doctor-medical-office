@@ -1,3 +1,5 @@
+'use client';
+
 import { EyeIcon } from 'lucide-react';
 import Link from 'next/link';
 import { type FC } from 'react';
@@ -17,13 +19,17 @@ type ViewPatientDetailsButtonProps = {
 export const ViewPatientDetailsButton: FC<ViewPatientDetailsButtonProps> = ({
   id,
 }) => {
-  // TODO: Solve style issues. The tooltip is not displaying with the correct style.
   return (
     <TooltipProvider>
       <Tooltip delayDuration={50}>
         <TooltipTrigger asChild>
           <Button size="icon" asChild>
-            <Link href={`${ClientRoutes.PATIENTS}/${id}`}>
+            <Link
+              onClick={(e) => {
+                e.nativeEvent.stopImmediatePropagation();
+              }}
+              href={`${ClientRoutes.PATIENTS}/${id}`}
+            >
               <EyeIcon className="size-4" />
             </Link>
           </Button>

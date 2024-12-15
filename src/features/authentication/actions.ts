@@ -2,8 +2,8 @@
 
 import { hash, verify } from '@node-rs/argon2';
 import { generateIdFromEntropySize } from 'lucia';
-import { isRedirectError } from 'next/dist/client/components/redirect';
 import { redirect } from 'next/navigation';
+import { isRedirectError } from 'next/dist/client/components/redirect-error';
 import { ErrorsMessages } from '@/lib/constants';
 import { ClientRoutes } from '@/lib/clients-routes';
 import { createSession, removeSession, validateRequestSession } from '@/auth';

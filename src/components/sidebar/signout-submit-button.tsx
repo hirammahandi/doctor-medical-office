@@ -1,6 +1,5 @@
 import { LogOut } from 'lucide-react';
 import { type FC } from 'react';
-// eslint-disable-next-line import/named -- This is intentional
 import { useFormStatus } from 'react-dom';
 import { logout } from '@/features/authentication/actions';
 import { cn } from '@/lib/utils';

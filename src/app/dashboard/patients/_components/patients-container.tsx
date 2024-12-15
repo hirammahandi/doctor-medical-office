@@ -1,5 +1,4 @@
 import { redirect } from 'next/navigation';
-import { type FC } from 'react';
 import { validateRequestSession } from '@/auth';
 import { InvalidQueryParamsView } from '@/components/invalid-query-params-view';
 import {
@@ -17,9 +16,10 @@ import { UpsertPatientModalForm } from './upsert-patient-modal-form';
 type PatientsListProps = {
   patientQueryParams: PatientsQueryParamSchema;
 };
-export const PatientsContainer: FC<PatientsListProps> = async ({
+
+export const PatientsContainer = async ({
   patientQueryParams,
-}) => {
+}: PatientsListProps) => {
   const safeQueryParams =
     patientsQueryParamSchema.safeParse(patientQueryParams);
 
